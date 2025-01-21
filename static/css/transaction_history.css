@@ -1,0 +1,174 @@
+.transaction-history {
+    background: var(--bg-primary);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+
+.transaction-history h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.transaction-total {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.transaction-total section {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 6px;
+    background: var(--bg-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-total p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.transaction-total .credit {
+    color: #28a745;
+    font-weight: 600;
+}
+
+.transaction-total .debit {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* Table Styles */
+.transaction-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.transaction-history th {
+    background: var(--bg-secondary);
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.transaction-history td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.transaction-history tr:hover {
+    background-color: var(--bg-secondary);
+}
+
+.transaction-history td.credit {
+    color: #28a745;
+    font-weight: 500;
+}
+
+.transaction-history td.debit {
+    color: #dc3545;
+    font-weight: 500;
+}
+
+.export-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.export-buttons button {
+    white-space: nowrap;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .transaction-history {
+        padding: 1rem;
+    }
+
+    .transaction-total {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .transaction-history h2 {
+        font-size: 1.5rem;
+    }
+
+    /* Convert table to cards for mobile */
+    .transaction-history table, 
+    .transaction-history thead, 
+    .transaction-history tbody, 
+    .transaction-history th, 
+    .transaction-history td, 
+    .transaction-history tr {
+        display: block;
+    }
+
+    .transaction-history thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .transaction-history tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background: var(--bg-primary);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .transaction-history td {
+        position: relative;
+        padding: 0.75rem 0.75rem 0.75rem 50%;
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .transaction-history td:last-child {
+        border-bottom: none;
+    }
+
+    .transaction-history td:before {
+        position: absolute;
+        left: 0.75rem;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .export-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .export-buttons button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Adjust header layout for mobile */
+    .transaction-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch !important;
+    }
+
+    .transaction-header h2 {
+        text-align: center;
+    }
+}

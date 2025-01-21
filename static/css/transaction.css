@@ -1,0 +1,222 @@
+/* Transaction Pages Styles */
+.payment-success {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem auto;
+    padding: 2rem;
+    animation: slideIn 0.3s ease;
+}
+
+.payment-success h2 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+    font-family: var(--font-family);
+    letter-spacing: -0.5px;
+}
+
+/* Transaction Details Table */
+.payment-success table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+.payment-success table tr {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.payment-success table tr:last-child {
+    border-bottom: none;
+}
+
+.payment-success table td {
+    padding: 1rem;
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+.payment-success table td:first-child {
+    width: 30%;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+/* Balance Transfer Container */
+.balance-transfer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.sub-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.account-balance {
+    margin-bottom: 1.5rem;
+}
+
+.balance-title {
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.balance-amount {
+    color: #1a1a1a;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Button Styles */
+.btn-tabs {
+    display: flex;
+    gap: 1rem;
+}
+
+.transfer-button {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.transfer-button {
+    background: #2563eb;
+    color: white;
+}
+
+.transfer-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.request-btn {
+    background: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+
+.request-btn:hover {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+/* OTP Form Styles */
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form p {
+    color: #4a5568;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form input[type="text"] {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1.25rem;
+    text-align: center;
+    letter-spacing: 0.25rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s ease;
+}
+
+.form input[type="text"]:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form button {
+    width: 100%;
+    padding: 1rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* Screenshot Link */
+.payment-success a {
+    display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.payment-success a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .payment-success {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .balance-transfer-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .payment-success table td {
+        padding: 0.75rem;
+        font-size: 0.95rem;
+    }
+    
+    .form {
+        padding: 1.5rem;
+    }
+}

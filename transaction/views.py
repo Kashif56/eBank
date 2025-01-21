@@ -12,6 +12,13 @@ import pandas as pd
 import csv
 from io import BytesIO
 from django.db import transaction
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib.enums import TA_LEFT, TA_CENTER
+from reportlab.lib.units import inch
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+from io import BytesIO
 
 import random
 from datetime import date, timedelta, datetime
@@ -323,17 +330,99 @@ def manage_card(request, account_number):
 
 @login_required
 def transaction_history(request, account_number):
-    context = {}
-    bank_account = BankAccount.objects.get(account_number=account_number)
-    context['bank_account'] = bank_account
-    context['bank_account_created'] = True
-    trx_history = Transaction.objects.filter(Q(from_acc=bank_account) | Q(to_acc=bank_account))
-    context['trx_history'] = trx_history
-    context['credit_total'] = get_transactions_total(request.user)[0]
-    context['debit_total'] = get_transactions_total(request.user)[1]
+    bank_account = BankAccount.objects.get(account_number=account_number, user=request.user)
+    transactions = Transaction.objects.filter(Q(from_acc=bank_account) | Q(to_acc=bank_account)).order_by('-timestamp')
 
+    export_format = request.GET.get('export')
+    if export_format:
+        if export_format == 'pdf':
+            pdf_file = export_transactions_to_pdf(transactions, request.user)
+            response = HttpResponse(pdf_file, content_type='application/pdf')
+            response['Content-Disposition'] = f'attachment; filename="transactions_{account_number}.pdf"'
+            return response
+        elif export_format == 'csv':
+            return export_transactions_to_csv(transactions)
+
+    context = {
+        'transactions': transactions,
+        'bank_account': bank_account,
+        'bank_account_created': True,
+        'credit_total': get_transactions_total(request.user)[0],
+        'debit_total': get_transactions_total(request.user)[1]
+    }
     return render(request, 'transaction_history.html', context)
 
+
+def export_transactions_to_pdf(transactions, user):
+    buffer = BytesIO()
+    c = canvas.Canvas(buffer, pagesize=letter)
+    style = ParagraphStyle(
+        name='BodyText',
+        fontSize=12,
+        leading=14,
+        alignment=TA_LEFT,
+    )
+    style_center = ParagraphStyle(
+        name='BodyText',
+        fontSize=12,
+        leading=14,
+        alignment=TA_CENTER,
+    )
+    c.setTitle('Transaction History')
+    c.setAuthor('Banking System')
+    c.setSubject('Transaction History for ' + user.username)
+    c.setKeywords(['Transaction History', 'Banking System'])
+    c.setFont('Helvetica', 12)
+    c.drawString(inch, 10 * inch, 'Transaction History for ' + user.username)
+    c.line(inch, 9.9 * inch, 7.5 * inch, 9.9 * inch)
+    c.setFont('Helvetica', 10)
+    c.drawString(inch, 9.5 * inch, 'Transaction ID')
+    c.drawString(2.5 * inch, 9.5 * inch, 'Date')
+    c.drawString(4.5 * inch, 9.5 * inch, 'Type')
+    c.drawString(6 * inch, 9.5 * inch, 'Amount')
+    c.line(inch, 9.4 * inch, 7.5 * inch, 9.4 * inch)
+    y = 9
+    for transaction in transactions:
+        c.drawString(inch, y * inch, str(transaction.trx_id))
+        c.drawString(2.5 * inch, y * inch, str(transaction.timestamp))
+        c.drawString(4.5 * inch, y * inch, transaction.trx_type)
+        c.drawString(6 * inch, y * inch, str(transaction.amount))
+        y -= 0.4
+        if y < 1:
+            c.showPage()
+            c.setFont('Helvetica', 12)
+            c.drawString(inch, 10 * inch, 'Transaction History for ' + user.username)
+            c.line(inch, 9.9 * inch, 7.5 * inch, 9.9 * inch)
+            c.setFont('Helvetica', 10)
+            c.drawString(inch, 9.5 * inch, 'Transaction ID')
+            c.drawString(2.5 * inch, 9.5 * inch, 'Date')
+            c.drawString(4.5 * inch, 9.5 * inch, 'Type')
+            c.drawString(6 * inch, 9.5 * inch, 'Amount')
+            c.line(inch, 9.4 * inch, 7.5 * inch, 9.4 * inch)
+            y = 9
+    c.save()
+    buffer.seek(0)
+    return buffer.read()
+
+
+def export_transactions_to_csv(transactions):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="transactions.csv"'
+    
+    writer = csv.writer(response)
+    writer.writerow(['Date', 'Transaction ID', 'Sender', 'Receiver', 'Type', 'Amount'])
+    
+    for transaction in transactions:
+        writer.writerow([
+            transaction.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+            transaction.trx_id,
+            transaction.from_acc.full_name if transaction.from_acc else 'N/A',
+            transaction.to_acc.full_name if transaction.to_acc else 'N/A',
+            'Credit' if transaction.trx_type == 'Credit' else 'Debit',
+            f'PKR {transaction.amount}'
+        ])
+    
+    return response
 
 
 def request_money(request):

@@ -1,0 +1,175 @@
+/* Common styles for customer support pages */
+.transaction-history {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+
+.transaction-history h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+/* All Issues Page */
+.transaction-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.transaction-history thead th {
+    background: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.transaction-history tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    color: #495057;
+}
+
+.transaction-history tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.transaction-history td a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.transaction-history td a:hover {
+    text-decoration: underline;
+}
+
+/* Issue Form */
+.form-container {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+
+.form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+}
+
+.input-with-button {
+    margin-bottom: 1.5rem;
+}
+
+textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #495057;
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color 0.2s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+button[type="submit"] {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background: #0056b3;
+}
+
+/* Issue Detail Page */
+.issue-section {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.issue-section section {
+    margin-bottom: 1rem;
+}
+
+.issue-section section:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.issue-section section:last-child {
+    margin-bottom: 0;
+    color: #212529;
+    line-height: 1.6;
+}
+
+/* Status indicators */
+.status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-open {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+}
+
+.status-resolved {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .transaction-history,
+    .form-container {
+        padding: 1rem;
+    }
+    
+    .issue-section {
+        padding: 1rem;
+    }
+    
+    .transaction-history table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .form {
+        padding: 0;
+    }
+}

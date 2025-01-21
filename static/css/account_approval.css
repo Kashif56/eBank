@@ -1,0 +1,132 @@
+.approval-container {
+    min-height: calc(100vh - 80px);
+    padding: 2rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+}
+
+.approval-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    animation: slideIn 0.5s ease;
+}
+
+.approval-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.approval-header h2 {
+    font-size: 1.75rem;
+    color: #1a1a1a;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.approval-header i {
+    font-size: 3rem;
+    color: #f57c00;
+    margin-bottom: 1rem;
+}
+
+.approval-status {
+    background: #fff3e0;
+    color: #f57c00;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: pulse 2s infinite;
+}
+
+.approval-status i {
+    margin-right: 0.5rem;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 2rem;
+}
+
+.details-table tr {
+    transition: all 0.2s ease;
+}
+
+.details-table tr:hover {
+    background: #f8f9fa;
+}
+
+.details-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.details-table td:first-child {
+    font-weight: 600;
+    color: #666;
+    width: 40%;
+}
+
+.details-table td:last-child {
+    color: #1a1a1a;
+}
+
+.details-table tr:last-child td {
+    border-bottom: none;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+}
+
+.detail-item i {
+    margin-right: 0.75rem;
+    color: #1565c0;
+    width: 20px;
+    text-align: center;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .approval-container {
+        padding: 1rem;
+    }
+
+    .approval-card {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .details-table td {
+        padding: 0.75rem;
+    }
+}

@@ -10,60 +10,77 @@
 class="active-link"
 {% endblock %}
 
-
 {% block content %}
-    <div class="dashboard-container">
-        <div class="transaction-history trx-history">
+<div class="dashboard-container">
+    <div class="transaction-history trx-history">
+        <div class="transaction-header d-flex justify-content-between align-items-center mb-4">
             <h2>Transaction History</h2>
-            <div class="transaction-total">
-                <section>
-                    <p class="credit">Credit Amount</p>
-                    <p>PKR {{ credit_total }}</p>
-                </section>
-                <section>
-                    <p class="debit">Debit Amount</p>
-                    <p>PKR {{ debit_total }}</p>
-                </section>
-                
-                
+            <div class="export-buttons">
+                <button class="btn btn-outline-primary" onclick="window.location.href='?export=pdf'">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </button>
+                <button class="btn btn-outline-primary" onclick="window.location.href='?export=csv'">
+                    <i class="fas fa-file-csv"></i> Export CSV
+                </button>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>S#</th>
-                        <th>Sender</th>
-                        <th>Receiver</th>
-                        <th>Transaction Type</th>
-                        <th>Transaction ID</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in trx_history %}
-                    {% if item.from_acc == bank_account or item.to_acc == bank_account %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ item.from_acc.full_name }}</td>
-                        <td>{{ item.to_acc.full_name }}</td>
-                        
-                        {% if item.to_acc == bank_account %}
-                        <td>Credit</td>
-                        {% else %}
-                        <td>{{ item.trx_type }}</td> {% endif %}
-                        
-                        <td>{{ item.trx_id }}</td>
-                        <td class="{% if item.to_acc == bank_account %}credit{% else %}debit{% endif %}">PKR {{ item.amount | intcomma }}</td>
-                    </tr>
-                    {% endif %}
-                    {% empty %}
-                    <tr>
-                        <td style="text-align: center;" colspan="6">No Transaction Recorded</td>
-                    </tr>
-                    {% endfor %}
-   
-                </tbody>
-            </table>
         </div>
-    </div>
 
+        <div class="transaction-total">
+            <section>
+                <p class="credit">Credit Amount</p>
+                <p>PKR {{ credit_total|intcomma }}</p>
+            </section>
+            <section>
+                <p class="debit">Debit Amount</p>
+                <p>PKR {{ debit_total|intcomma }}</p>
+            </section>
+            <section>
+                <p>Current Balance</p>
+                <p>PKR {{ bank_account.balance|intcomma }}</p>
+            </section>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>S#</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Transaction Type</th>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td data-label="S#">{{ forloop.counter }}</td>
+                    <td data-label="Sender">{{ transaction.from_acc.full_name }}</td>
+                    <td data-label="Receiver">{{ transaction.to_acc.full_name }}</td>
+                    <td data-label="Type">
+                        {% if transaction.to_acc == bank_account %}
+                        Credit
+                        {% else %}
+                        {{ transaction.trx_type }}
+                        {% endif %}
+                    </td>
+                    <td data-label="Transaction ID">{{ transaction.trx_id }}</td>
+                    <td data-label="Amount" class="{% if transaction.to_acc == bank_account %}credit{% else %}debit{% endif %}">
+                        PKR {{ transaction.amount|intcomma }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">No Transaction Recorded</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/theme.js' %}"></script>
+<script src="{% static 'js/notifications.js' %}"></script>
 {% endblock %}
