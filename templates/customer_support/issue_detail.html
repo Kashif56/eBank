@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/customer_support.css' %}">
+{% endblock %}
+
+{% block support_active %}
+class="active-link"
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <div class="transaction-history">
+            <h2>Issue Detail {% if item.resolved_at is not None %}( Closed ) {% endif %}</h2>
+          
+            <div class="issue-section">
+                <section>
+                    <p>{{ item.user.username }}</p>
+                    <p>{{ item.timestamp | timesince }} Ago</p>
+                </section>
+                <section>
+                    <p>{{ item.content }}</p>
+                </section>
+            </div>
+
+            <div class="issue-section">
+                {% if response %}
+                <section>
+                    <p>RESPONSE</p>
+                    <p>{{ response.timestamp | timesince }} Ago</p>
+                </section>
+                <section>
+                    <p>{{ response.response }}</p>
+                </section>
+                {% else %}
+                <section>
+                    <p>Waiting for Response</p>
+                </section>
+                {% endif %}
+            </div>
+
+        </div>
+
+        
+     
+    </div>
+
+{% endblock %}

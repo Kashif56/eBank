@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/customer_support.css' %}">
+{% endblock %}
+
+{% block requests_active %}
+class="active-link"
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <div class="transaction-history">
+            <h2>All Issues</h2>
+          
+            <table>
+                <thead>
+                    <tr>
+                        <th>Issue ID</th>
+                        <th>Message</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in issues %}
+                    <tr>
+                        <td><a href="{% url 'core:issue_detail' item.id %}">{{ item.id }}</a></td>
+                        <td>{{ item.content | slice:"0:200" }}</td>
+                        {% if item.resolved_at is None %}
+                        <td><span class="status status-open">Open</span></td>
+                        {% else %}
+                        <td><span class="status status-resolved">Resolved</span></td>
+                        {% endif %}
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" style="text-align: center;">No Issues Reported</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

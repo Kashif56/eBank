@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/card.css' %}">
+{% endblock %}
+
+{% block card_active %}
+class="active"
+{% endblock %}
+
+{% block content %}
+<div class="card-container">
+    {% if card %}
+    <div class="card-section">
+        {% if card.is_reviewed %}
+        <h2>
+            <i class="fas fa-credit-card"></i>
+            Manage Your Card
+        </h2>
+        
+        <div class="card-status {% if card.is_active %}status-active{% else %}status-inactive{% endif %}">
+            <i class="fas {% if card.is_active %}fa-check-circle{% else %}fa-times-circle{% endif %}"></i>
+            {% if card.is_active %}Active{% else %}Inactive{% endif %}
+        </div>
+
+        <div class="credit-card">
+            <div class="card-chip"></div>
+            <div class="card-number">
+                {{ card.card_number|slice:"0:4" }}-{{ card.card_number|slice:"4:8" }}-{{ card.card_number|slice:"8:12" }}-{{ card.card_number|slice:"12:16" }}
+            </div>
+            <div class="card-name">{{ card.card_name }}</div>
+            <div class="card-expiry">Valid Thru: {{ card.card_expiry|date:'m/y' }}</div>
+            <div class="card-cvv">CVV: {{ card.card_cvv }}</div>
+            <div class="card-bank">ONLINE BANK</div>
+        </div>
+
+        <div class="card-controls">
+            <form method="post">
+                {% csrf_token %}
+                <div class="toggle-container">
+                    <span class="toggle-label">
+                        <i class="fas fa-toggle-on"></i>
+                        Card Status
+                    </span>
+                    <label class="toggle-switch">
+                        <input name="is_active" type="checkbox" {% if card.is_active %}checked{% endif %}>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <button type="submit" class="save-button">
+                    <i class="fas fa-save"></i>
+                    Save Changes
+                </button>
+            </form>
+        </div>
+
+        {% else %}
+        <h2>
+            <i class="fas fa-clock"></i>
+            Card Application Status
+        </h2>
+        
+        <div class="card-status status-pending">
+            <i class="fas fa-clock"></i>
+            Pending Approval
+        </div>
+
+        <div class="credit-card">
+            <div class="card-chip"></div>
+            <div class="card-number">**** **** **** ****</div>
+            <div class="card-name">CARD HOLDER NAME</div>
+            <div class="card-expiry">MM/YY</div>
+            <div class="card-cvv">***</div>
+            <div class="card-bank">ONLINE BANK</div>
+        </div>
+
+        <div class="empty-state">
+            <i class="fas fa-info-circle"></i>
+            <p>Your card application is being reviewed. Please check back later.</p>
+        </div>
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="card-section">
+        <div class="empty-state">
+            <i class="fas fa-credit-card"></i>
+            <p>You haven't applied for a debit card yet.</p>
+            <a href="#" class="save-button">
+                <i class="fas fa-plus"></i>
+                Apply for a Card
+            </a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% if messages %}
+<div class="msg-container">
+    {% for msg in messages %}
+    <div class="msg {% if msg.tags == 'success' %}success{% elif msg.tags == 'error' %}error{% endif %}">
+        <i class="fas {% if msg.tags == 'success' %}fa-check-circle{% elif msg.tags == 'error' %}fa-exclamation-circle{% endif %}"></i>
+        <span>{{ msg }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

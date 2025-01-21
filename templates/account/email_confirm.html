@@ -1,0 +1,114 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .confirm-container {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    }
+
+    .confirm-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        padding: 2.5rem;
+        text-align: center;
+        animation: slideIn 0.3s ease;
+    }
+
+    .confirm-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 2rem;
+        background: #e3f2fd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .confirm-icon i {
+        font-size: 2.5rem;
+        color: #1565c0;
+    }
+
+    .confirm-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+    }
+
+    .confirm-message {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .confirm-button {
+        background: #1565c0;
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 100%;
+    }
+
+    .confirm-button:hover {
+        background: #0d47a1;
+        transform: translateY(-1px);
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .confirm-card {
+            padding: 2rem;
+            margin: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="confirm-container">
+    <div class="confirm-card">
+        <div class="confirm-icon">
+            <i class="fas fa-envelope-circle-check"></i>
+        </div>
+        <h1 class="confirm-title">Confirm Your Email</h1>
+        <p class="confirm-message">
+            Please click the button below to confirm your email address and activate your account.
+        </p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="confirm-button">
+                <i class="fas fa-check-circle"></i>
+                Confirm Email
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

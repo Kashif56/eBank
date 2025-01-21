@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/customer_support.css' %}">
+{% endblock %}
+
+{% block payment_active %}
+class="active-link"
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <div class='form-container'>
+            <div class="form">
+                <h2>Report Issue</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-with-button">
+                        <textarea placeholder="Describe your issue in detail..." name="content"></textarea>
+                    </div>
+                    <button type="submit">Report Issue</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

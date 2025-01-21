@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block home_active %}
+class="active"
+{% endblock home_active %}
+
+{% block content %}
+<div class="dashboard-container">
+    {% if not is_applied %}
+    <div class="card-msg">
+        <h3>
+            <i class="fas fa-credit-card"></i>
+            You don't have a Debit Card yet. Apply now to access more features!
+        </h3>
+        <a href="{% url 'transaction:apply_card' bank_account.account_number %}">
+            <i class="fas fa-arrow-right"></i>
+            Apply Now
+        </a>
+    </div>
+    {% endif %}
+    
+    <div class="balance-transfer-container">
+        <div class="sub-container">
+            <div class="account-balance">
+                <div class="balance-title">Available Balance</div>
+                <div class="balance-amount">PKR {{ bank_account.balance | intcomma }}</div>
+            </div>
+            <div class="btn-tabs">
+                <a class="transfer-button" href="{% url 'transaction:make_payment' bank_account.account_number %}">
+                    <i class="fas fa-paper-plane"></i>
+                    Transfer
+                </a>
+                <a class="transfer-button request-btn" href="{% url 'transaction:request_money' %}">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    Request
+                </a>
+            </div>
+        </div>
+        <div class="sub-container">
+            <div>
+                <div class="balance-title">Account Holder</div>
+                <div class="balance-amount">{{ bank_account.full_name }}</div>
+            </div>
+            <div>
+                <div class="balance-title">Account Number</div>
+                <div class="balance-amount account-number">{{ bank_account.account_number }}</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="transaction-history">
+        <h2>
+            <i class="fas fa-history"></i>
+            Transaction History
+        </h2>
+        <div class="transaction-total">
+            <section>
+                <p class="credit">
+                    <i class="fas fa-arrow-down"></i>
+                    Credit Amount
+                </p>
+                <p>PKR {{ credit_total | intcomma }}</p>
+            </section>
+            <section>
+                <p class="debit">
+                    <i class="fas fa-arrow-up"></i>
+                    Debit Amount
+                </p>
+                <p>PKR {{ debit_total | intcomma }}</p>
+            </section>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>S#</th>
+                    <th>Sender</th>
+                    <th>Receiver</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in trx_qs %}
+                {% if item.from_acc == bank_account or item.to_acc == bank_account %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.from_acc.full_name }}</td>
+                    <td>{{ item.to_acc.full_name }}</td>
+                    {% if item.to_acc == bank_account %}
+                    <td><span class="credit">Credit</span></td>
+                    {% else %}
+                    <td><span class="debit">{{ item.trx_type }}</span></td>
+                    {% endif %}
+                    <td>PKR {{ item.amount | intcomma }}</td>
+                </tr>
+                {% endif %}
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 2rem;">
+                        <i class="fas fa-inbox" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                        <p style="margin: 0;">No Transactions Recorded</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const accountNumberElement = document.querySelector('.account-number');
+        if (accountNumberElement) {
+            const number = accountNumberElement.textContent.trim();
+            const formattedNumber = number.replace(/(\d{4})/g, '$1 ').trim();
+            accountNumberElement.textContent = formattedNumber;
+        }
+    });
+</script>
+{% endblock %}

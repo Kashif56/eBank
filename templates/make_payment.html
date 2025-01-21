@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/payment.css' %}">
+{% endblock %}
+
+{% block payment_active %}
+class="active"
+{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <div class="account-summary">
+        <div class="summary-card">
+            <div class="balance-info">
+                <div class="balance-label">Available Balance</div>
+                <div class="balance-value">PKR {{ bank_account.balance|intcomma }}</div>
+            </div>
+            <div class="balance-info">
+                <div class="balance-label">Account Holder</div>
+                <div class="balance-value">{{ bank_account.full_name }}</div>
+            </div>
+        </div>
+        <div class="summary-card">
+            <div class="balance-info">
+                <div class="balance-label">Account Number</div>
+                <div class="balance-value">{{ bank_account.account_number }}</div>
+            </div>
+            <div class="balance-info">
+                <div class="balance-label">Account Status</div>
+                <div class="balance-value">
+                    <i class="fas fa-check-circle" style="color: var(--success-color)"></i>
+                    Active
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-form">
+        <h2>
+            <i class="fas fa-paper-plane"></i>
+            Make Payment
+        </h2>
+        <form method="post" action=".">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="account-number">Recipient Account Number</label>
+                <div class="input-with-button">
+                    <input 
+                        type="text" 
+                        id="account-number"
+                        name="to_acc" 
+                        class="form-control"
+                        placeholder="Enter account number"
+                        {% if request_item %} 
+                        value="{{ request_item.request_from.account_number }}" 
+                        {% endif %}
+                        required
+                        maxlength="19"
+                    >
+                    <button type="button" id="verify-account-btn" class="verify-button">
+                        <i class="fas fa-check-circle"></i>
+                        Verify Account
+                    </button>
+                </div>
+                <div id="account-error" class="error-message" style="display: none; color: #dc3545; margin-top: 0.5rem;"></div>
+                <div id="account-success" class="success-message" style="display: none; color: #28a745; margin-top: 0.5rem;">
+                    <i class="fas fa-check-circle"></i> Account verified successfully
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="recipient-name">Recipient Name</label>
+                <input 
+                    type="text" 
+                    id="recipient-name"
+                    class="form-control"
+                    readonly
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="account-type">Account Type</label>
+                <input 
+                    type="text" 
+                    id="account-type"
+                    class="form-control"
+                    readonly
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount (PKR)</label>
+                <input 
+                    type="number" 
+                    id="amount"
+                    name="amount" 
+                    class="form-control"
+                    placeholder="Enter amount"
+                    value="{{ request_item.amount }}"
+                    required
+                >
+            </div>
+            
+            <button type="submit" class="submit-button">
+                <i class="fas fa-arrow-right"></i>
+                Transfer Money
+            </button>
+        </form>
+    </div>
+</div>
+
+{% if messages %}
+<div class="msg-container">
+    {% for msg in messages %}
+    <div class="msg {% if msg.tags == 'success' %}success{% elif msg.tags == 'error' %}error{% endif %}">
+        <i class="fas {% if msg.tags == 'success' %}fa-check-circle{% elif msg.tags == 'error' %}fa-exclamation-circle{% endif %}"></i>
+        <span>{{ msg }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/payment.js' %}"></script>
+{% endblock %}

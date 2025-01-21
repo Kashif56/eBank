@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account_settings.css' %}">
+{% endblock %}
+
+{% block acc_setting_active %}
+class="active-link"
+{% endblock %}
+
+{% block content %}
+<div class="settings-container">
+    <div class="settings-card">
+        <div class="settings-header">
+            <i class="fas fa-cog"></i>
+            <h1>Account Settings</h1>
+        </div>
+
+        <form method="POST" id="account-settings-form" class="settings-form">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>
+                    <i class="fas fa-piggy-bank"></i>
+                    Account Type
+                </label>
+                <select class="form-control" id="account-type" name="account-type">
+                    <option value="current">Current Account</option>
+                    <option value="savings">Savings Account</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <i class="fas fa-envelope"></i>
+                    Email Notifications
+                </label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" id="email-notifications-yes" value="1" name="email-notifications">
+                        <span>Yes, keep me updated</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" id="email-notifications-no" value="0" name="email-notifications">
+                        <span>No, thanks</span>
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="save-button" id="save-button">
+                <i class="fas fa-save"></i>
+                Save Changes
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="settings-saved" id="settings-saved">
+    <i class="fas fa-check-circle"></i>
+    Settings saved successfully!
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('account-settings-form');
+    const savedNotification = document.getElementById('settings-saved');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Simulate saving
+        setTimeout(() => {
+            savedNotification.classList.add('show');
+            
+            setTimeout(() => {
+                savedNotification.classList.remove('show');
+            }, 3000);
+        }, 500);
+    });
+    
+    // Add animation to form groups on hover
+    const formGroups = document.querySelectorAll('.form-group');
+    formGroups.forEach(group => {
+        group.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateX(5px)';
+        });
+        
+        group.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateX(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

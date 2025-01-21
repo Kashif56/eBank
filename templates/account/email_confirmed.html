@@ -1,0 +1,163 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    .success-container {
+        min-height: calc(100vh - 80px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    }
+
+    .success-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        padding: 2.5rem;
+        text-align: center;
+        animation: slideIn 0.3s ease;
+    }
+
+    .success-icon {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 2rem;
+        position: relative;
+    }
+
+    .success-icon-circle {
+        width: 120px;
+        height: 120px;
+        background: #e8f5e9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: scaleIn 0.3s ease-out 0.3s both;
+    }
+
+    .success-icon i {
+        font-size: 3.5rem;
+        color: #2e7d32;
+        animation: checkmark 0.4s ease-in-out 0.7s both;
+    }
+
+    .success-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 1rem;
+        opacity: 0;
+        animation: fadeInUp 0.4s ease-out 1s forwards;
+    }
+
+    .success-message {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeInUp 0.4s ease-out 1.2s forwards;
+    }
+
+    .success-button {
+        background: #2e7d32;
+        color: white;
+        text-decoration: none;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        display: inline-block;
+        transition: all 0.2s ease;
+        opacity: 0;
+        animation: fadeInUp 0.4s ease-out 1.4s forwards;
+    }
+
+    .success-button:hover {
+        background: #1b5e20;
+        transform: translateY(-1px);
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes checkmark {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .success-card {
+            padding: 2rem;
+            margin: 1rem;
+        }
+
+        .success-title {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="success-container">
+    <div class="success-card">
+        <div class="success-icon">
+            <div class="success-icon-circle">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+        <h1 class="success-title">Email Confirmed!</h1>
+        <p class="success-message">
+            Your email has been successfully verified. You can now access all features of your account.
+        </p>
+        <a href="{% url 'account_login' %}" class="success-button">
+            <i class="fas fa-sign-in-alt"></i>
+            Continue to Login
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/account_approval.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="approval-container">
+    <div class="approval-card">
+        <div class="approval-header">
+            <i class="fas fa-clock"></i>
+            <h2>Account Application Status</h2>
+        </div>
+
+        <div class="approval-status">
+            <i class="fas fa-spinner fa-spin"></i>
+            Your application is being reviewed
+        </div>
+
+        <div class="details-table">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="detail-item">
+                                <i class="fas fa-user"></i>
+                                Full Name
+                            </div>
+                        </td>
+                        <td>{{ item.full_name }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Address
+                            </div>
+                        </td>
+                        <td>{{ item.address }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="detail-item">
+                                <i class="fas fa-phone"></i>
+                                Phone Number
+                            </div>
+                        </td>
+                        <td>{{ item.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="detail-item">
+                                <i class="fas fa-briefcase"></i>
+                                Profession
+                            </div>
+                        </td>
+                        <td>{{ item.profession }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                Opened Date
+                            </div>
+                        </td>
+                        <td>{{ item.date_created }}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="detail-item">
+                                <i class="fas fa-hashtag"></i>
+                                Account Number
+                            </div>
+                        </td>
+                        <td id="account-number">{{ item.account_number }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const accountNumberElement = document.getElementById('account-number');
+    if (accountNumberElement) {
+        const rawNumber = accountNumberElement.textContent.trim();
+        // Format number in groups of 4 digits
+        const formattedNumber = rawNumber.replace(/(\d{4})/g, '$1 ').trim();
+        accountNumberElement.textContent = formattedNumber;
+        
+        // Add copy to clipboard functionality
+        accountNumberElement.style.cursor = 'pointer';
+        accountNumberElement.title = 'Click to copy';
+        
+        accountNumberElement.addEventListener('click', function() {
+            const textToCopy = rawNumber; // Copy without spaces
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Show temporary copied message
+                const originalText = this.textContent;
+                this.textContent = 'Copied!';
+                setTimeout(() => {
+                    this.textContent = originalText;
+                }, 1000);
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

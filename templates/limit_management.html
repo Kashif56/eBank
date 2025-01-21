@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/limits.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/limits.js' %}"></script>
+{% endblock %}
+
+{% block limit_manage_active %}
+class="active"
+{% endblock %}
+
+{% block content %}
+<div class="limits-container">
+ 
+    <div class="limits-section">
+        <h2>
+            <i class="fas fa-sliders-h"></i>
+            Limit Management
+        </h2>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="limit-item">
+                <label for="dailyLimit">
+                    <i class="fas fa-calendar-day"></i>
+                    Daily Limit
+                </label>
+                <input type="range" name="daily_limit" min="0" max="50000" value="{{ bank_account.daily_limit }}" class="slider" id="dailyLimit">
+                <div class="limit-values">
+                    <span class="total-limit">
+                        <i class="fas fa-chart-line"></i>
+                        Total: PKR <span id="dailyLimitValue">{{ bank_account.daily_limit|intcomma }}</span>
+                    </span>
+                    <span class="remaining-limit">
+                        <i class="fas fa-wallet"></i>
+                        Remaining: PKR <span id="dailyRemainingValue">{{ bank_account.daily_remaining_limit|intcomma }}</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="limit-item">
+                <label for="monthlyLimit">
+                    <i class="fas fa-calendar-alt"></i>
+                    Monthly Limit
+                </label>
+                <input type="range" name="monthly_limit" min="0" max="{{ bank_account.max_monthly_limit }}" value="{{ bank_account.monthly_limit }}" class="slider" id="monthlyLimit">
+                <div class="limit-values">
+                    <span class="total-limit">
+                        <i class="fas fa-chart-line"></i>
+                        Total: PKR <span id="monthlyLimitValue">{{ bank_account.monthly_limit|intcomma }}</span>
+                    </span>
+                    <span class="remaining-limit">
+                        <i class="fas fa-wallet"></i>
+                        Remaining: PKR <span id="monthlyRemainingValue">{{ bank_account.monthly_remaining_limit|intcomma }}</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="limit-item">
+                <label for="yearlyLimit">
+                    <i class="fas fa-calendar"></i>
+                    Yearly Limit
+                </label>
+                <input type="range" name="yearly_limit" min="0" max="{{ bank_account.max_yearly_limit }}" value="{{ bank_account.yearly_limit }}" class="slider" id="yearlyLimit">
+                <div class="limit-values">
+                    <span class="total-limit">
+                        <i class="fas fa-chart-line"></i>
+                        Total: PKR <span id="yearlyLimitValue">{{ bank_account.yearly_limit|intcomma }}</span>
+                    </span>
+                    <span class="remaining-limit">
+                        <i class="fas fa-wallet"></i>
+                        Remaining: PKR <span id="yearlyRemainingValue">{{ bank_account.yearly_remaining_limit|intcomma }}</span>
+                    </span>
+                </div>
+            </div>
+
+            <button type="submit" class="save-button">
+                <i class="fas fa-save"></i>
+                Save Changes
+            </button>
+        </form>
+    </div>
+</div>
+
+{% if messages %}
+<div class="msg-container">
+    {% for msg in messages %}
+    <div class="msg {% if msg.tags == 'success' %}success{% elif msg.tags == 'error' %}error{% endif %}">
+        <i class="fas {% if msg.tags == 'success' %}fa-check-circle{% elif msg.tags == 'error' %}fa-exclamation-circle{% endif %}"></i>
+        <span>{{ msg }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

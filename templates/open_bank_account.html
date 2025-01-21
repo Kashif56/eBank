@@ -1,0 +1,79 @@
+ {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/open_account.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="open-account-container">
+    <div class="welcome-section">
+        <h2>Hey {{ request.user }}!</h2>
+        <h2>Welcome to E Bank</h2>
+    </div>
+    
+    <div class="account-form-card">
+        <div class="form-header">
+            <i class="fas fa-university"></i>
+            <h2>OPEN BANK ACCOUNT</h2>
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Full Name</label>
+                <input class="form-control" required type="text" placeholder="John Doe" name="full_name">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Mobile Number</label>
+                <input class="form-control" required type="tel" placeholder="+9234567890" name="phone_number">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> Address</label>
+                <input class="form-control" required type="text" placeholder="XYZ Street, City" name="address">
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-piggy-bank"></i> Account Type</label>
+                <select class="form-control" required name="account_type">
+                    <option value="">Select Account Type</option>
+                    <option value="Current">Current Account</option>
+                    <option value="Islamic">Islamic Account</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-briefcase"></i> Profession</label>
+                <input class="form-control" required type="text" placeholder="Programmer, Doctor etc" name="profession">
+            </div>
+            
+            <button type="submit" class="submit-button">
+                <i class="fas fa-rocket"></i>
+                Let's Get Started!
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form');
+    const inputs = form.querySelectorAll('.form-control');
+    
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateX(5px)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateX(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/payment_success.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="success-container">
+    <div class="success-card" id="receipt-content">
+        <div class="success-header">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1 class="success-title">Payment Successful!</h1>
+            <p class="success-subtitle">Your transaction has been completed successfully</p>
+        </div>
+
+        <div class="transaction-details">
+            <div class="detail-group">
+                <div class="detail-label">Transaction ID</div>
+                <div class="detail-value transaction-id">{{ item.trx_id }}</div>
+            </div>
+
+            <div class="detail-group">
+                <div class="detail-label">Amount</div>
+                <div class="detail-value amount-value">PKR {{ item.amount|intcomma }}</div>
+            </div>
+
+            <table class="transaction-table">
+                <tr>
+                    <td>
+                        <i class="fas fa-paper-plane text-primary"></i>
+                        From Account
+                    </td>
+                    <td>
+                        <div class="detail-value">{{ item.from_acc.full_name }}</div>
+                        <div class="detail-label account-number" data-number="{{ item.from_acc.account_number }}">
+                            {{ item.from_acc.account_number }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-user-check text-success"></i>
+                        To Account
+                    </td>
+                    <td>
+                        <div class="detail-value">{{ item.to_acc.full_name }}</div>
+                        <div class="detail-label account-number" data-number="{{ item.to_acc.account_number }}">
+                            {{ item.to_acc.account_number }}
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-calendar-alt text-info"></i>
+                        Date & Time
+                    </td>
+                    <td>{{ item.timestamp }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="fas fa-info-circle text-warning"></i>
+                        Status
+                    </td>
+                    <td>
+                        <span class="badge badge-success">
+                            <i class="fas fa-check-circle"></i>
+                            Completed
+                        </span>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="button-group">
+                <button class="save-button" id="save-receipt">
+                    <i class="fas fa-download"></i>
+                    Save Receipt
+                </button>
+                <button class="print-button" onclick="window.print()">
+                    <i class="fas fa-print"></i>
+                    Print Receipt
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Format account numbers
+    const accountNumbers = document.querySelectorAll('.account-number');
+    accountNumbers.forEach(element => {
+        const number = element.dataset.number;
+        const formatted = number.replace(/(\d{4})/g, '$1 ').trim();
+        element.textContent = formatted;
+    });
+
+    // Save receipt as image
+    document.getElementById('save-receipt').addEventListener('click', async function(e) {
+        e.preventDefault();
+        
+        // Show loading state
+        const originalText = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        this.disabled = true;
+
+        try {
+            const receiptContent = document.getElementById('receipt-content');
+            
+            // Wait for fonts to load
+            await document.fonts.ready;
+            
+            // Temporarily modify styles for better capture
+            const originalStyles = {
+                transform: receiptContent.style.transform,
+                boxShadow: receiptContent.style.boxShadow,
+                margin: receiptContent.style.margin
+            };
+
+            receiptContent.style.transform = 'none';
+            receiptContent.style.boxShadow = 'none';
+            receiptContent.style.margin = '0';
+
+            // Hide buttons during capture
+            const buttonGroup = receiptContent.querySelector('.button-group');
+            buttonGroup.style.display = 'none';
+
+            // Capture the receipt
+            const canvas = await html2canvas(receiptContent, {
+                scale: 3,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+                allowTaint: true,
+                removeContainer: true,
+                imageTimeout: 0,
+                fontDisplay: 'swap',
+                onclone: function(clonedDoc) {
+                    const clonedContent = clonedDoc.getElementById('receipt-content');
+                    if (clonedContent) {
+                        clonedContent.style.padding = '40px';
+                        clonedContent.style.width = '600px';
+                        clonedContent.style.margin = '0 auto';
+                        clonedContent.style.borderRadius = '0';
+                        
+                        // Ensure Font Awesome is loaded in clone
+                        const fontAwesome = document.createElement('link');
+                        fontAwesome.rel = 'stylesheet';
+                        fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css';
+                        clonedDoc.head.appendChild(fontAwesome);
+                    }
+                }
+            });
+
+            // Restore original styles
+            receiptContent.style.transform = originalStyles.transform;
+            receiptContent.style.boxShadow = originalStyles.boxShadow;
+            receiptContent.style.margin = originalStyles.margin;
+            buttonGroup.style.display = 'flex';
+
+            // Convert to high-quality PNG and download
+            const image = canvas.toDataURL('image/png', 1.0);
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = `E-Bank_Receipt_${Date.now()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error generating receipt:', error);
+        } finally {
+            // Reset button state
+            this.innerHTML = originalText;
+            this.disabled = false;
+        }
+    });
+});
+</script>
+{% endblock %}

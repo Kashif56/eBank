@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/requests.css' %}">
+{% endblock %}
+
+{% block requests_active %}
+class="active"
+{% endblock %}
+
+{% block content %}
+<div class="requests-container">
+    <div class="requests-section">
+        <h2>
+            <i class="fas fa-inbox"></i>
+            Requests For You
+        </h2>
+        <table class="requests-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Request From</th>
+                    <th>Amount</th>
+                    <th>Requested At</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in requests_qs %}
+                {% if not request.user == item.request_from.user %}
+                <tr>
+                    <td>
+                        <a href="{% url 'transaction:request_money_detail' item.id %}" class="request-id">
+                            #{{ item.id }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'transaction:request_money_detail' item.id %}" class="request-id">
+                            {{ item.request_from.full_name }}
+                        </a>
+                    </td>
+                    <td>PKR {{ item.amount|intcomma }}</td>
+                    <td>{{ item.requested_at|date:"M d, Y" }}</td>
+                    <td>
+                        {% if item.is_rejected %}
+                        <span class="request-status status-rejected">
+                            <i class="fas fa-times-circle"></i>
+                            Rejected
+                        </span>
+                        {% elif item.is_accepted %}
+                        <span class="request-status status-accepted">
+                            <i class="fas fa-check-circle"></i>
+                            Accepted
+                        </span>
+                        {% else %}
+                        <span class="request-status status-pending">
+                            <i class="fas fa-clock"></i>
+                            Pending
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not item.is_accepted and not item.is_rejected %}
+                        <div class="request-actions">
+                            <a href="{% url 'transaction:accept_request' item.id %}" class="action-button action-accept">
+                                <i class="fas fa-check"></i>
+                                Accept
+                            </a>
+                            <a href="{% url 'transaction:reject_request' item.id %}" class="action-button action-reject">
+                                <i class="fas fa-times"></i>
+                                Reject
+                            </a>
+                        </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>No requests for you at the moment</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="requests-section">
+        <h2>
+            <i class="fas fa-paper-plane"></i>
+            Your Requests
+        </h2>
+        <table class="requests-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Request To</th>
+                    <th>Amount</th>
+                    <th>Requested At</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in requests_qs %}
+                {% if request.user == item.request_from.user %}
+                <tr>
+                    <td>
+                        <a href="{% url 'transaction:request_money_detail' item.id %}" class="request-id">
+                            #{{ item.id }}
+                        </a>
+                    </td>
+                    <td>{{ item.request_to.full_name }}</td>
+                    <td>PKR {{ item.amount|intcomma }}</td>
+                    <td>{{ item.requested_at|date:"M d, Y" }}</td>
+                    <td>
+                        {% if item.is_rejected %}
+                        <span class="request-status status-rejected">
+                            <i class="fas fa-times-circle"></i>
+                            Rejected
+                        </span>
+                        {% elif item.is_accepted %}
+                        <span class="request-status status-accepted">
+                            <i class="fas fa-check-circle"></i>
+                            Accepted
+                        </span>
+                        {% else %}
+                        <span class="request-status status-pending">
+                            <i class="fas fa-clock"></i>
+                            Pending
+                        </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="empty-state">
+                        <i class="fas fa-paper-plane"></i>
+                        <p>You haven't made any requests yet</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if messages %}
+<div class="msg-container">
+    {% for msg in messages %}
+    <div class="msg {% if msg.tags == 'success' %}success{% elif msg.tags == 'error' %}error{% endif %}">
+        <i class="fas {% if msg.tags == 'success' %}fa-check-circle{% elif msg.tags == 'error' %}fa-exclamation-circle{% endif %}"></i>
+        <span>{{ msg }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

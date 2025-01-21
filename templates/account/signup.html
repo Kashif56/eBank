@@ -1,0 +1,75 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Online Banking</title>
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <a class="auth-tab active" href="{% url 'account_signup' %}">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </a>
+                <a class="auth-tab" href="{% url 'account_login' %}">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </div>
+            
+            <div class="auth-form">
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Join us to manage your finances better</p>
+                
+                <form method="post" class="modern-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-fields">
+                        {{ form.as_p }}
+                    </div>
+
+                    <button type="submit" class="auth-button">
+                        <span>Create Account</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="{% url 'account_login' %}">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="msg-container">
+        {% for msg in messages %}
+        <div class="msg {% if msg.tags == 'success' %}success{% elif msg.tags == 'error' %}error{% endif %}">
+            <i class="fas {% if msg.tags == 'success' %}fa-check-circle{% elif msg.tags == 'error' %}fa-exclamation-circle{% endif %}"></i>
+            <span>{{ msg }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const messages = document.querySelectorAll('.msg');
+            messages.forEach(msg => {
+                setTimeout(() => {
+                    msg.style.opacity = '0';
+                    msg.style.transform = 'translateX(100%)';
+                    setTimeout(() => msg.remove(), 300);
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>
