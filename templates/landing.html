@@ -4,136 +4,942 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EBank - Modern Banking Solutions</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        /* Floating animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        /* Pulse animation */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        /* Rotate animation for features */
-        @keyframes rotateIn {
-            0% { transform: rotate(-10deg); opacity: 0; }
-            100% { transform: rotate(0); opacity: 1; }
-        }
-        
-        /* Flip animation for services */
-        @keyframes flipIn {
-            0% { transform: perspective(400px) rotateY(-90deg); opacity: 0; }
-            100% { transform: perspective(400px) rotateY(0); opacity: 1; }
-        }
-        
-        /* Bounce animation for testimonials */
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        
-        /* Slide up animation for stats */
-        @keyframes slideUp {
-            0% { transform: translateY(50px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        
-        /* Wave animation for CTA */
-        @keyframes wave {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(0); }
-            100% { transform: translateX(100%); }
-        }
-        
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-pulse-slow { animation: pulse 4s ease-in-out infinite; }
-        .animate-rotate { animation: rotateIn 1s ease-out forwards; }
-        .animate-flip { animation: flipIn 1s ease-out forwards; }
-        .animate-bounce { animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
-        .animate-slide-up { animation: slideUp 1s ease-out forwards; }
-        
-        /* Applying animations to sections */
-        .features-section [data-aos] { animation: rotateIn 1s ease-out forwards; }
-        .services-section [data-aos] { animation: flipIn 1s ease-out forwards; }
-        .testimonials-section [data-aos] { animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
-        .stats-section [data-aos] { animation: slideUp 1s ease-out forwards; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
-                    fontFamily: {
-                        'inter': ['Inter', 'sans-serif'],
-                    },
                     colors: {
                         primary: '#2563eb',
-                        secondary: '#3b82f6',
-                        accent: '#f59e0b',
+                        secondary: '#3b82f6'
                     },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    }
                 }
             }
         }
     </script>
+    <style>
+        /* Dark mode styles */
+        :root {
+            color-scheme: light;
+        }
+
+        :root.dark {
+            color-scheme: dark;
+        }
+
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark body {
+            background: linear-gradient(to bottom right, #0f172a, #1e3a8a);
+            color: #e2e8f0;
+        }
+
+        .dark .nav-blur {
+            background-color: rgba(17, 24, 39, 0.95);
+        }
+
+        /* Dark mode toggle animation */
+        .dark-mode-toggle {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dark-mode-toggle:hover {
+            background-color: rgba(156, 163, 175, 0.1);
+        }
+
+        .dark-mode-toggle svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.2s ease, transform 0.3s ease;
+        }
+
+        .dark .dark-mode-toggle svg[class*="dark:block"] {
+            transform: translate(-50%, -50%) rotate(0deg);
+            opacity: 1;
+        }
+
+        .dark .dark-mode-toggle svg[class*="dark:hidden"] {
+            transform: translate(-50%, -50%) rotate(90deg);
+            opacity: 0;
+        }
+
+        /* Additional dark mode styles */
+        .dark .bg-white {
+            background-color: #1f2937;
+        }
+
+        .dark .bg-gray-50 {
+            background-color: #111827;
+        }
+
+        .dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark input::placeholder {
+            color: #6b7280;
+        }
+
+        .dark .from-blue-100 {
+            --tw-gradient-from: rgba(37, 99, 235, 0.1);
+        }
+
+        .dark .to-indigo-100 {
+            --tw-gradient-to: rgba(79, 70, 229, 0.1);
+        }
+
+        .dark .text-gray-900 {
+            color: #f3f4f6;
+        }
+
+        .dark .border-blue-100\/50 {
+            border-color: rgba(37, 99, 235, 0.1);
+        }
+
+        /* Hero section dark mode gradient */
+        .dark .hero-section {
+            background: linear-gradient(165deg, #0f172a 0%, #1e3a8a 100%);
+        }
+
+        /* Additional dark mode background gradients */
+        .dark .bg-gradient-to-br {
+            background: linear-gradient(to bottom right, #0f172a, #1e3a8a);
+        }
+
+        /* Fix for dark mode transitions */
+        * {
+            transition-property: background-color, border-color, color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+
+        /* Card improvements for dark mode */
+        .dark .card,
+        .dark .bg-white {
+            background-color: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(8px);
+        }
+
+        .dark .group:hover .card,
+        .dark .bg-white:hover {
+            background-color: rgba(30, 41, 59, 0.9);
+        }
+
+        /* Stats card improvements */
+        .dark .stats-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .stats-card:hover {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.7));
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .dark .stats-card .number {
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .stats-card .label {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        /* Service and feature cards */
+        .dark .service-card,
+        .dark .feature-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .service-card:hover,
+        .dark .feature-card:hover {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0.7));
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        /* Card icon containers */
+        .dark .icon-container {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .dark .group:hover .icon-container {
+            background: linear-gradient(145deg, #3b82f6, #2563eb);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .dark .icon-container i {
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .dark .group:hover .icon-container i {
+            background: none;
+            color: white;
+        }
+
+        /* Get Started button gradient */
+        .dark .get-started-btn {
+            background: linear-gradient(165deg, #0f172a, #1e3a8a);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .get-started-btn:hover {
+            background: linear-gradient(165deg, #1e3a8a, #0f172a);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Why Choose Us cards unique design */
+        .dark .why-choose-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            padding: 2.5rem;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .dark .why-choose-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(59, 130, 246, 0.05) 45%, 
+                rgba(59, 130, 246, 0.1) 50%,
+                rgba(59, 130, 246, 0.05) 55%,
+                transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .dark .why-choose-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .dark .why-choose-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(59, 130, 246, 0.15) 0%, 
+                transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .dark .why-choose-card:hover::after {
+            opacity: 1;
+        }
+
+        .dark .why-choose-icon {
+            position: relative;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            transform: translateZ(20px);
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark .why-choose-card:hover .why-choose-icon {
+            transform: translateZ(30px) rotate(5deg);
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.2));
+        }
+
+        .dark .why-choose-icon i {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .dark .why-choose-card:hover .why-choose-icon i {
+            animation: iconFloat 2s ease-in-out infinite;
+        }
+
+        .dark .why-choose-content {
+            transform: translateZ(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .dark .why-choose-card:hover .why-choose-content {
+            transform: translateZ(20px);
+        }
+
+        .dark .why-choose-card .title {
+            background: linear-gradient(to right, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            transform: translateZ(15px);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .why-choose-card .description {
+            color: #94a3b8;
+            line-height: 1.6;
+            transform: translateZ(5px);
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        /* Card hover effect with mouse movement */
+        .dark .why-choose-section {
+            perspective: 1000px;
+        }
+
+        .dark .card-wrapper {
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            transition: transform 0.3s ease;
+        }
+
+        .dark .why-choose-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Features list styling */
+        .dark .features-list {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .dark .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .dark .feature-item:hover {
+            opacity: 1;
+        }
+
+        .dark .feature-icon {
+            margin-right: 0.75rem;
+            color: #3b82f6;
+        }
+
+        /* Services Section Styling */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .service-card-large {
+            grid-column: span 8;
+            background: linear-gradient(165deg, rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .service-card-small {
+            grid-column: span 4;
+            background: linear-gradient(165deg, rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon-wrapper {
+            width: 180px;
+            height: 180px;
+            flex-shrink: 0;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
+            border-radius: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .service-icon-small {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card-large:hover .service-icon-wrapper,
+        .service-card-small:hover .service-icon-small {
+            transform: scale(1.05) rotate(5deg);
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.2));
+        }
+
+        .service-icon-wrapper i {
+            font-size: 4rem;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .service-icon-small i {
+            font-size: 2rem;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .service-content {
+            flex: 1;
+        }
+
+        .service-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .service-title-small {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-column {
+            flex: 1;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: #e2e8f0;
+        }
+
+        .service-feature i {
+            color: #3b82f6;
+            margin-right: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            .service-card-large,
+            .service-card-small {
+                grid-column: span 1;
+            }
+
+            .service-card-large {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .service-features {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .service-icon-wrapper {
+                margin: 0 auto;
+            }
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .dark .navbar {
+            background: linear-gradient(165deg, #0f172a, #1e3a8a);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(12px);
+        }
+
+        .dark .navbar.scrolled {
+            background: linear-gradient(165deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95));
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .dark .nav-link {
+            color: #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .dark .nav-link:hover {
+            color: #60a5fa;
+        }
+
+        .dark .nav-link.active {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .dark .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            transition: width 0.3s ease;
+        }
+
+        .dark .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Light mode specific styles */
+        .navbar {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(241, 245, 249, 0.95));
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .navbar.scrolled {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.98));
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-link {
+            color: #1e293b;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #3b82f6, #60a5fa);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .service-card-large {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.9));
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .service-card-small {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.9));
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .service-icon-wrapper {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+        }
+
+        .service-icon-small {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+        }
+
+        .service-title {
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .service-description {
+            color: #64748b;
+        }
+
+        .service-feature {
+            color: #475569;
+        }
+
+        .service-feature i {
+            color: #3b82f6;
+        }
+
+        /* Why Choose Us light mode */
+        .why-choose-section {
+            position: relative;
+        }
+
+        .card-wrapper {
+            transition: transform 0.3s ease;
+        }
+
+        .card-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        .why-choose-card {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(241, 245, 249, 0.95));
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .why-choose-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: rgba(59, 130, 246, 0.3);
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.98));
+        }
+
+        .why-choose-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .why-choose-icon i {
+            font-size: 1.5rem;
+            color: #3b82f6;
+            transition: all 0.3s ease;
+        }
+
+        .why-choose-card:hover .why-choose-icon {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+            transform: scale(1.05);
+        }
+
+        .why-choose-card:hover .why-choose-icon i {
+            transform: scale(1.1);
+        }
+
+        .why-choose-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .why-choose-card .title {
+            color: #1e293b;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #1e293b, #334155);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .why-choose-card .description {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .feature-item i {
+            color: #3b82f6;
+            font-size: 0.875rem;
+            padding: 0.25rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 50%;
+        }
+
+        .why-choose-card:hover .feature-item i {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        /* Services light mode */
+        .service-card-large,
+        .service-card-small {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.9));
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .service-card-large:hover,
+        .service-card-small:hover {
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .service-icon-wrapper,
+        .service-icon-small {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.1), rgba(37, 99, 235, 0.05));
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1);
+        }
+
+        .service-card-large:hover .service-icon-wrapper,
+        .service-card-small:hover .service-icon-small {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.1));
+        }
+
+        .service-title,
+        .service-title-small {
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .service-description {
+            color: #64748b;
+        }
+
+        .service-feature {
+            color: #475569;
+        }
+
+        .service-feature i {
+            color: #3b82f6;
+        }
+
+        /* Stats cards light mode */
+        .stats-card {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.9));
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .stats-card:hover {
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .stats-card .number {
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+        }
+
+        .stats-card .label {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* Hero section light mode */
+        .hero-section {
+            background: linear-gradient(165deg, #f8fafc, #f1f5f9);
+        }
+
+        .stats-card {
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.9), rgba(241, 245, 249, 0.9));
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .stats-card .number {
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stats-card .label {
+            color: #64748b;
+        }
+
+        /* Dark mode services */
+        .dark .service-card-large,
+        .dark .service-card-small {
+            background: linear-gradient(165deg, rgba(30, 41, 59, 0.8), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(12px);
+        }
+
+        .dark .service-card-large:hover,
+        .dark .service-card-small:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dark .service-icon-wrapper,
+        .dark .service-icon-small {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1));
+        }
+
+        .dark .service-card-large:hover .service-icon-wrapper,
+        .dark .service-card-small:hover .service-icon-small {
+            background: linear-gradient(145deg, rgba(59, 130, 246, 0.3), rgba(59, 130, 246, 0.2));
+        }
+
+        .dark .service-title,
+        .dark .service-title-small {
+            background: linear-gradient(to right, #fff, #e2e8f0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .dark .service-description {
+            color: #94a3b8;
+        }
+
+        .dark .service-feature {
+            color: #e2e8f0;
+        }
+
+        .dark .service-feature i {
+            color: #3b82f6;
+        }
+
+        .get-started-btn {
+            background: linear-gradient(165deg, #3b82f6, #2563eb);
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2);
+        }
+
+        .get-started-btn:hover {
+            background: linear-gradient(165deg, #2563eb, #1d4ed8);
+            box-shadow: 0 8px 12px -2px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
-<body class="font-inter antialiased bg-gradient-to-br from-blue-50 to-white">
+<body class="font-inter antialiased bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
     <!-- Navigation -->
-    <nav class="bg-white/95 backdrop-blur-sm shadow-sm fixed w-full z-50 py-4 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <header class="navbar fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <!-- Logo and Brand -->
-                <div class="flex-shrink-0">
-                    <a href="#" class="flex items-center space-x-3 group">
-                        <img class="h-10 w-auto rounded-lg transition-transform duration-300 group-hover:scale-105" 
-                             src="https://img.freepik.com/free-vector/gradient-bank-logo-design_23-2149543725.jpg?w=150" 
-                             alt="eBank Logo">
-                        <span class="text-xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">eBank</span>
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold text-gray-900 dark:text-white">
+                        <span class="text-primary dark:text-blue-400">e</span>Bank
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden md:flex md:items-center md:space-x-8">
-                    <a href="#features" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Features</a>
-                    <a href="#services" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Services</a>
-                    <a href="#testimonials" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Testimonials</a>
-                    <a href="#contact" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Contact</a>
-                </div>
-
-                <!-- CTA Button -->
-                <div class="hidden md:block">
-                    <a href="#" class="inline-flex items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg">
-                        Get Started
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </a>
-                </div>
-
-                <!-- Mobile menu button -->
-                <div class="md:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-all duration-200">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">Services</a>
+                    <a href="#" class="nav-link">About</a>
+                    <a href="#" class="nav-link">Contact</a>
+                    <button id="darkModeToggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-sun text-gray-600 dark:text-yellow-400 hidden dark:block"></i>
+                        <i class="fas fa-moon text-gray-600 dark:text-gray-400 block dark:hidden"></i>
                     </button>
+                    <a href="/account/login" class="px-6 py-2 text-white bg-primary hover:bg-blue-600 rounded-lg transition-colors">Login</a>
                 </div>
+
+                <button class="md:hidden text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <!-- Hero Section: Fade + Float -->
-    <section class="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-white">
+    <section class="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 hero-section">
         <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -141,7 +947,7 @@
                         <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 text-primary mb-6">
                             <span class="text-sm font-semibold">Welcome to EBank</span>
                         </div>
-                        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6" data-aos="fade-up" data-aos-delay="200">
+                        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-aos="fade-up" data-aos-delay="200">
                             Banking Made 
                             <span class="relative inline-block">
                                 <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">Simple</span>
@@ -156,46 +962,40 @@
                                 </svg>
                             </span>
                         </h1>
-                        <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="400">
+                        <p class="text-xl text-gray-600 dark:text-gray-300 mb-12 max-w-2xl mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="400">
                             Experience the future of banking with our secure and intuitive digital platform. Manage your finances with confidence.
                         </p>
                         <div class="flex flex-wrap justify-center lg:justify-start gap-4 mb-12" data-aos="fade-up" data-aos-delay="600">
-                            <a href="/account/signup" class="inline-flex items-center px-8 py-4 text-white rounded-xl transition-all duration-200 transform hover:-translate-y-1 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary shadow-lg hover:shadow-xl">
-                                <i class="fas fa-user-plus mr-2"></i>
-                                Get Started
-                            </a>
-                            <a href="#features" class="inline-flex items-center px-8 py-4 bg-white/80 backdrop-blur-sm text-primary rounded-xl hover:bg-white transition-all duration-200 shadow-md hover:shadow-xl transform hover:-translate-y-1">
-                                <i class="fas fa-play mr-2"></i>
-                                How it Works
-                            </a>
+                            <a href="/account/signup" class="get-started-btn inline-flex items-center px-8 py-4 text-white bg-primary hover:bg-blue-600 rounded-xl transition-colors">Get Started</a>
+                            <a href="#features" class="inline-flex items-center px-8 py-4 bg-white/80 backdrop-blur-sm text-primary rounded-xl hover:bg-white transition-colors">How it Works</a>
                         </div>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8" data-aos="fade-up" data-aos-delay="800">
                             <div class="relative group" data-aos="zoom-in" data-aos-delay="900">
                                 <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
-                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
-                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">2M+</div>
-                                    <p class="text-gray-600 text-sm">Active Users</p>
+                                <div class="stats-card relative p-6 rounded-xl transition-all duration-300">
+                                    <div class="number text-3xl font-bold mb-1">2M+</div>
+                                    <p class="label text-sm">Active Users</p>
                                 </div>
                             </div>
                             <div class="relative group" data-aos="zoom-in" data-aos-delay="1000">
                                 <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
-                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
-                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">150+</div>
-                                    <p class="text-gray-600 text-sm">Countries</p>
+                                <div class="stats-card relative p-6 rounded-xl transition-all duration-300">
+                                    <div class="number text-3xl font-bold mb-1">$5B+</div>
+                                    <p class="label text-sm">Transactions</p>
                                 </div>
                             </div>
                             <div class="relative group" data-aos="zoom-in" data-aos-delay="1100">
                                 <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
-                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
-                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">99.9%</div>
-                                    <p class="text-gray-600 text-sm">Satisfaction</p>
+                                <div class="stats-card relative p-6 rounded-xl transition-all duration-300">
+                                    <div class="number text-3xl font-bold mb-1">99.9%</div>
+                                    <p class="label text-sm">Uptime</p>
                                 </div>
                             </div>
                             <div class="relative group" data-aos="zoom-in" data-aos-delay="1200">
                                 <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
-                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
-                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">24/7</div>
-                                    <p class="text-gray-600 text-sm">Support</p>
+                                <div class="stats-card relative p-6 rounded-xl transition-all duration-300">
+                                    <div class="number text-3xl font-bold mb-1">24/7</div>
+                                    <p class="label text-sm">Support</p>
                                 </div>
                             </div>
                         </div>
@@ -212,8 +1012,8 @@
                                         <i class="fas fa-shield-alt text-2xl text-green-600"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900">Bank Grade Security</h4>
-                                        <p class="text-sm text-gray-600">Your money is safe with us</p>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white">Bank Grade Security</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Your money is safe with us</p>
                                     </div>
                                 </div>
                             </div>
@@ -225,8 +1025,8 @@
                                         <i class="fas fa-mobile-alt text-2xl text-primary"></i>
                                     </div>
                                     <div>
-                                        <h4 class="font-semibold text-gray-900">Mobile Banking</h4>
-                                        <p class="text-sm text-gray-600">Bank on the go</p>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white">Mobile Banking</h4>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">Bank on the go</p>
                                     </div>
                                 </div>
                             </div>
@@ -238,220 +1038,269 @@
     </section>
 
     <!-- Features Section: Rotate In -->
-    <section id="features" class="features-section py-20 bg-gray-50">
+    <section id="features" class="features-section py-20 bg-gray-50 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-down" data-aos-offset="200" data-aos-duration="800">
-                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
                     <span class="text-sm font-semibold">Features</span>
                 </div>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up" data-aos-delay="200">Experience Next-Gen Banking</h2>
-                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="300">Discover why millions of users trust us with their banking needs</p>
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up" data-aos-delay="200">Experience Next-Gen Banking</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400" data-aos="fade-up" data-aos-delay="300">Discover why millions of users trust us with their banking needs</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                <div class="group bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1" 
                      data-aos="rotate-in" 
                      data-aos-delay="400"
                      data-aos-offset="300"
                      data-aos-duration="800">
-                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div class="text-primary dark:text-blue-400 text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Bank-Grade Security</h3>
-                    <p class="text-gray-600">Your security is our top priority. We use advanced encryption and multi-factor authentication to protect your data.</p>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Bank-Grade Security</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Your security is our top priority. We use advanced encryption and multi-factor authentication to protect your data.</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                <div class="group bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1" 
                      data-aos="rotate-in" 
                      data-aos-delay="500"
                      data-aos-offset="300"
                      data-aos-duration="800">
-                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div class="text-primary dark:text-blue-400 text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Mobile Banking</h3>
-                    <p class="text-gray-600">Manage your finances on the go with our intuitive mobile app. Available for iOS and Android.</p>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Mobile Banking</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Manage your finances on the go with our intuitive mobile app. Available for iOS and Android.</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                <div class="group bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1" 
                      data-aos="rotate-in" 
                      data-aos-delay="600"
                      data-aos-offset="300"
                      data-aos-duration="800">
-                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div class="text-primary dark:text-blue-400 text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Instant Transfers</h3>
-                    <p class="text-gray-600">Send money instantly to anyone, anywhere. No waiting, no hassle.</p>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Instant Transfers</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Send money instantly to anyone, anywhere. No waiting, no hassle.</p>
                 </div>
 
-                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                <div class="group bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-1" 
                      data-aos="rotate-in" 
                      data-aos-delay="700"
                      data-aos-offset="300"
                      data-aos-duration="800">
-                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div class="text-primary dark:text-blue-400 text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Smart Analytics</h3>
-                    <p class="text-gray-600">Get insights into your spending patterns and make informed financial decisions.</p>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Smart Analytics</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Get insights into your spending patterns and make informed financial decisions.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="py-20 bg-gray-50">
+    <section class="py-20 bg-gray-50 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <span class="inline-block px-4 py-2 bg-blue-100 text-primary rounded-full text-sm font-semibold mb-4">Why Choose Us</span>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Banking Excellence at Your Service</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover why thousands of customers trust us with their financial needs</p>
+                <span class="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-primary rounded-full text-sm font-semibold mb-4">Why Choose Us</span>
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Banking Excellence at Your Service</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Discover why thousands of customers trust us with their financial needs</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Security -->
-                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                        <i class="fas fa-shield-alt text-3xl text-primary group-hover:text-white"></i>
+            <div class="why-choose-section grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Security Card -->
+                <div class="card-wrapper" data-aos="fade-up" data-aos-delay="200">
+                    <div class="why-choose-card">
+                        <div class="why-choose-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="why-choose-content">
+                            <h3 class="title">Bank-grade Security</h3>
+                            <p class="description">Your finances are protected by industry-leading security protocols and encryption.</p>
+                            <div class="features-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>256-bit encryption</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Biometric authentication</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>24/7 fraud monitoring</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Bank-Grade Security</h3>
-                    <p class="text-gray-600 mb-6">Your security is our top priority. We employ state-of-the-art encryption and multi-factor authentication to protect your assets.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            256-bit encryption
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            Biometric authentication
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            24/7 fraud monitoring
-                        </li>
-                    </ul>
                 </div>
 
-                <!-- Customer Support -->
-                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                        <i class="fas fa-headset text-3xl text-primary group-hover:text-white"></i>
+                <!-- Speed Card -->
+                <div class="card-wrapper" data-aos="fade-up" data-aos-delay="400">
+                    <div class="why-choose-card">
+                        <div class="why-choose-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="why-choose-content">
+                            <h3 class="title">Lightning Fast</h3>
+                            <p class="description">Experience instant transactions and real-time updates across all your accounts.</p>
+                            <div class="features-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Instant transfers</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Real-time notifications</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Quick mobile deposits</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">24/7 Support</h3>
-                    <p class="text-gray-600 mb-6">Our dedicated support team is always ready to assist you with any banking needs or questions you may have.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            Live chat support
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            Phone assistance
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            Email support
-                        </li>
-                    </ul>
                 </div>
 
-                <!-- Easy Banking -->
-                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="600">
-                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                        <i class="fas fa-mobile-alt text-3xl text-primary group-hover:text-white"></i>
+                <!-- Support Card -->
+                <div class="card-wrapper" data-aos="fade-up" data-aos-delay="600">
+                    <div class="why-choose-card">
+                        <div class="why-choose-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="why-choose-content">
+                            <h3 class="title">24/7 Support</h3>
+                            <p class="description">Our dedicated support team is always ready to assist you, anytime, anywhere.</p>
+                            <div class="features-list">
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Live chat support</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Video consultations</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    <span>Priority service</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Easy Banking</h3>
-                    <p class="text-gray-600 mb-6">Experience hassle-free banking with our intuitive mobile app and online platform.</p>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            Quick transfers
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            Mobile check deposit
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
-                            Bill pay automation
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Services Section: Flip In -->
-    <section id="services" class="services-section py-20 bg-white">
+    <section id="services" class="services-section py-20 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-down" data-aos-offset="200" data-aos-duration="800">
-                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
                     <span class="text-sm font-semibold">Our Services</span>
                 </div>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up" data-aos-delay="200">Banking Solutions</h2>
-                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="300">Tailored financial services to meet your needs</p>
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up" data-aos-delay="200">Banking Solutions</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400" data-aos="fade-up" data-aos-delay="300">Tailored financial services to meet your needs</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Savings Card -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300" 
-                     data-aos="flip-left" 
-                     data-aos-delay="400" 
-                     data-aos-duration="800"
-                     data-aos-offset="300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://img.freepik.com/free-vector/investor-with-laptop-monitoring-growth-dividends-trader-with-computer-studying-trading-graph-analyzing-investment-diagram-vector-illustration-finance-stock-trading-investment_74855-8432.jpg?w=900" 
-                             alt="Savings" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+            <div class="services-grid">
+                <!-- Personal Banking - Large Card -->
+                <div class="service-card-large" data-aos="fade-up">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-user-shield"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Savings Accounts</h3>
-                        <p class="text-gray-600 mb-4">Grow your wealth with our high-yield savings accounts.</p>
-                        <a href="#" class="text-primary hover:text-blue-700 font-semibold inline-flex items-center">
-                            Learn More
-                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Loans Card -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300" 
-                     data-aos="flip-left" 
-                     data-aos-delay="600" 
-                     data-aos-duration="800"
-                     data-aos-offset="300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://img.freepik.com/free-vector/hand-holding-phone-with-credit-card-payment-app-buyer-using-smartphone-banking-application-flat-vector-illustration-finance-digital-technology-concept_74855-24595.jpg?w=900" 
-                             alt="Loans" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Personal Loans</h3>
-                        <p class="text-gray-600 mb-4">Get instant personal loans with competitive interest rates</p>
-                        <a href="#" class="text-primary hover:text-blue-700 font-semibold inline-flex items-center">
-                            Learn More
-                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                    <div class="service-content">
+                        <h3 class="service-title">Personal Banking</h3>
+                        <p class="service-description">Experience banking that's tailored to your lifestyle with our comprehensive personal banking solutions.</p>
+                        <div class="service-features">
+                            <div class="feature-column">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Free checking accounts</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Mobile banking app</span>
+                                </div>
+                            </div>
+                            <div class="feature-column">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Savings accounts</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Personal loans</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Investments Card -->
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300" 
-                     data-aos="flip-left" 
-                     data-aos-delay="800" 
-                     data-aos-duration="800"
-                     data-aos-offset="300">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://img.freepik.com/free-vector/financial-investment-concept_23-2148509878.jpg?w=900" 
-                             alt="Investments" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                <!-- Investment - Small Card -->
+                <div class="service-card-small" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon-small">
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Investments</h3>
-                        <p class="text-gray-600 mb-4">Grow your wealth with our diverse investment options</p>
-                        <a href="#" class="text-primary hover:text-blue-700 font-semibold inline-flex items-center">
-                            Learn More
-                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
-                        </a>
+                    <h3 class="service-title-small">Investment</h3>
+                    <p class="service-description">Grow your wealth with our expert investment services and diverse portfolio options.</p>
+                    <div class="service-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Portfolio management</span>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Retirement planning</span>
+                    </div>
+                </div>
+
+                <!-- Business Solutions - Small Card -->
+                <div class="service-card-small" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon-small">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 class="service-title-small">Business Solutions</h3>
+                    <p class="service-description">Comprehensive banking solutions designed to help your business thrive and grow.</p>
+                    <div class="service-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Business accounts</span>
+                    </div>
+                    <div class="service-feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Merchant services</span>
+                    </div>
+                </div>
+
+                <!-- Digital Banking - Large Card -->
+                <div class="service-card-large" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-icon-wrapper">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Digital Banking</h3>
+                        <p class="service-description">Bank smarter with our cutting-edge digital solutions that put you in control of your finances.</p>
+                        <div class="service-features">
+                            <div class="feature-column">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Online banking</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Mobile check deposit</span>
+                                </div>
+                            </div>
+                            <div class="feature-column">
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Bill pay</span>
+                                </div>
+                                <div class="service-feature">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>P2P payments</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -459,33 +1308,33 @@
     </section>
 
     <!-- Testimonials Section: Bounce In -->
-    <section id="testimonials" class="testimonials-section py-20 bg-gray-50">
+    <section id="testimonials" class="testimonials-section py-20 bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-down" data-aos-offset="200" data-aos-duration="800">
-                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/50 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
                     <span class="text-sm font-semibold">Testimonials</span>
                 </div>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up" data-aos-delay="200">What Our Customers Say</h2>
-                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="300">Read success stories from our satisfied customers</p>
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4" data-aos="fade-up" data-aos-delay="200">What Our Customers Say</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-400" data-aos="fade-up" data-aos-delay="300">Read success stories from our satisfied customers</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white rounded-2xl shadow-lg p-8 relative" 
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 relative" 
                      data-aos="zoom-in-up" 
                      data-aos-delay="400"
                      data-aos-duration="800"
                      data-aos-offset="300">
-                    <div class="absolute -top-4 right-8 text-4xl text-primary opacity-50">
+                    <div class="absolute -top-4 right-8 text-4xl text-primary dark:text-blue-400 opacity-50">
                         <i class="fas fa-quote-right"></i>
                     </div>
                     <div class="relative">
-                        <p class="text-gray-600 mb-6">"The best banking experience I've ever had. The mobile app is intuitive and transfers are instant!"</p>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">"The best banking experience I've ever had. The mobile app is intuitive and transfers are instant!"</p>
                         <div class="flex items-center">
                             <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
                             <div>
-                                <h4 class="font-bold text-gray-900">Sarah Johnson</h4>
-                                <p class="text-gray-600 text-sm">Business Owner</p>
+                                <h4 class="font-bold text-gray-900 dark:text-white">Sarah Johnson</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Business Owner</p>
                                 <div class="flex text-yellow-400 mt-1">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -499,21 +1348,21 @@
                 </div>
 
                 <!-- Testimonial 2 -->
-                <div class="bg-white rounded-2xl shadow-lg p-8 relative" 
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 relative" 
                      data-aos="zoom-in-up" 
                      data-aos-delay="600"
                      data-aos-duration="800"
                      data-aos-offset="300">
-                    <div class="absolute -top-4 right-8 text-4xl text-primary opacity-50">
+                    <div class="absolute -top-4 right-8 text-4xl text-primary dark:text-blue-400 opacity-50">
                         <i class="fas fa-quote-right"></i>
                     </div>
                     <div class="relative">
-                        <p class="text-gray-600 mb-6">"Their customer service is exceptional. Any issues I've had were resolved quickly and professionally."</p>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">"Their customer service is exceptional. Any issues I've had were resolved quickly and professionally."</p>
                         <div class="flex items-center">
                             <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Michael Chen" class="w-12 h-12 rounded-full mr-4">
                             <div>
-                                <h4 class="font-bold text-gray-900">Michael Chen</h4>
-                                <p class="text-gray-600 text-sm">Software Engineer</p>
+                                <h4 class="font-bold text-gray-900 dark:text-white">Michael Chen</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Software Engineer</p>
                                 <div class="flex text-yellow-400 mt-1">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -527,21 +1376,21 @@
                 </div>
 
                 <!-- Testimonial 3 -->
-                <div class="bg-white rounded-2xl shadow-lg p-8 relative" 
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 relative" 
                      data-aos="zoom-in-up" 
                      data-aos-delay="800"
                      data-aos-duration="800"
                      data-aos-offset="300">
-                    <div class="absolute -top-4 right-8 text-4xl text-primary opacity-50">
+                    <div class="absolute -top-4 right-8 text-4xl text-primary dark:text-blue-400 opacity-50">
                         <i class="fas fa-quote-right"></i>
                     </div>
                     <div class="relative">
-                        <p class="text-gray-600 mb-6">"The security features give me peace of mind. I can bank confidently knowing my money is safe."</p>
+                        <p class="text-gray-600 dark:text-gray-400 mb-6">"The security features give me peace of mind. I can bank confidently knowing my money is safe."</p>
                         <div class="flex items-center">
                             <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Emma Thompson" class="w-12 h-12 rounded-full mr-4">
                             <div>
-                                <h4 class="font-bold text-gray-900">Emma Thompson</h4>
-                                <p class="text-gray-600 text-sm">Teacher</p>
+                                <h4 class="font-bold text-gray-900 dark:text-white">Emma Thompson</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Teacher</p>
                                 <div class="flex text-yellow-400 mt-1">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -560,7 +1409,7 @@
    
 
     <!-- CTA Section: Wave Effect -->
-    <section class="cta-section relative py-20 bg-gradient-to-r from-primary to-blue-600 overflow-hidden">
+    <section class="cta-section relative py-20 bg-gradient-to-r from-primary to-blue-600 dark:from-blue-900 dark:to-blue-700 overflow-hidden">
         <div class="wave absolute inset-0 opacity-10">
             <div class="wave-content" style="animation: wave 8s infinite linear;"></div>
         </div>
@@ -569,7 +1418,7 @@
                 <span class="text-sm font-semibold">Get Started</span>
             </div>
             <h2 class="text-4xl font-bold text-white mb-4">Ready to Experience Modern Banking?</h2>
-            <p class="text-xl text-white/80 mb-8">Join millions of satisfied customers and revolutionize your banking experience today</p>
+            <p class="text-xl text-white/90 mb-8">Join millions of satisfied customers and revolutionize your banking experience today</p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="/account/signup" class="inline-flex items-center px-8 py-4 bg-white text-primary rounded-xl hover:bg-blue-50 transition-colors duration-200">
                     <i class="fas fa-user-plus mr-2"></i>
@@ -584,50 +1433,50 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-20 pb-6">
+    <footer class="bg-gray-900 dark:bg-gray-950 text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
                 <div class="space-y-4">
-                    <h3 class="text-2xl font-bold">EBank</h3>
-                    <p class="text-gray-400">Making banking simple, secure, and accessible for everyone.</p>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white">EBank</h3>
+                    <p class="text-gray-400 dark:text-gray-500">Making banking simple, secure, and accessible for everyone.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <a href="#" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">
                             <i class="fab fa-facebook text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <a href="#" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">
                             <i class="fab fa-twitter text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <a href="#" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">
                             <i class="fab fa-linkedin text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <a href="#" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">
                             <i class="fab fa-instagram text-xl"></i>
                         </a>
                     </div>
                 </div>
                 
                 <div class="space-y-4">
-                    <h4 class="text-lg font-semibold">Quick Links</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Quick Links</h4>
                     <div class="flex flex-col space-y-2">
-                        <a href="#features" class="text-gray-400 hover:text-white transition-colors duration-200">Features</a>
-                        <a href="#services" class="text-gray-400 hover:text-white transition-colors duration-200">Services</a>
-                        <a href="#testimonials" class="text-gray-400 hover:text-white transition-colors duration-200">Testimonials</a>
-                        <a href="/account/login" class="text-gray-400 hover:text-white transition-colors duration-200">Login</a>
+                        <a href="#features" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">Features</a>
+                        <a href="#services" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">Services</a>
+                        <a href="#testimonials" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">Testimonials</a>
+                        <a href="/account/login" class="text-gray-400 dark:text-gray-500 hover:text-white transition-colors duration-200">Login</a>
                     </div>
                 </div>
                 
                 <div class="space-y-4">
-                    <h4 class="text-lg font-semibold">Contact</h4>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Contact</h4>
                     <div class="space-y-2">
-                        <p class="flex items-center text-gray-400">
+                        <p class="flex items-center text-gray-400 dark:text-gray-500">
                             <i class="fas fa-phone mr-3"></i>
                             +1 234 567 890
                         </p>
-                        <p class="flex items-center text-gray-400">
+                        <p class="flex items-center text-gray-400 dark:text-gray-500">
                             <i class="fas fa-envelope mr-3"></i>
                             support@ebank.com
                         </p>
-                        <p class="flex items-center text-gray-400">
+                        <p class="flex items-center text-gray-400 dark:text-gray-500">
                             <i class="fas fa-map-marker-alt mr-3"></i>
                             123 Banking Street, NY 10001
                         </p>
@@ -635,11 +1484,11 @@
                 </div>
                 
                 <div class="space-y-4">
-                    <h4 class="text-lg font-semibold">Newsletter</h4>
-                    <p class="text-gray-400">Subscribe to our newsletter for updates and offers.</p>
+                    <h4 class="text-lg font-semibold text-gray-900 dark:text-white">Newsletter</h4>
+                    <p class="text-gray-400 dark:text-gray-500">Subscribe to our newsletter for updates and offers.</p>
                     <div class="flex">
-                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 bg-gray-800 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                        <button class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-blue-700 transition-colors duration-200">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 bg-gray-800 dark:bg-gray-900 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        <button class="px-4 py-2 bg-primary dark:bg-blue-700 text-white rounded-r-lg hover:bg-blue-700 dark:hover:bg-blue-800 transition-colors duration-200">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
@@ -647,54 +1496,84 @@
             </div>
             
             <div class="border-t border-gray-800 pt-6">
-                <p class="text-center text-gray-400">&copy; 2025 EBank. All rights reserved.</p>
+                <p class="text-center text-gray-400 dark:text-gray-500">&copy; 2025 EBank. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS with custom settings
+        // Initialize AOS
         AOS.init({
-            duration: 1000,
-            once: false,
-            offset: 150,
-            easing: 'ease-out-cubic',
-            disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-            mirror: true
+            duration: 800,
+            once: true,
+            offset: 100
         });
 
-        // Enhanced scroll-based animations
-        document.addEventListener('DOMContentLoaded', () => {
-            const animatedSections = [
-                '.features-section',
-                '.services-section',
-                '.testimonials-section'
-            ];
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
-            animatedSections.forEach(sectionClass => {
-                const section = document.querySelector(sectionClass);
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.querySelectorAll('[data-aos]').forEach(element => {
-                                element.classList.add('aos-animate');
-                            });
-                        } else {
-                            // Remove animation class when section is not visible
-                            entry.target.querySelectorAll('[data-aos]').forEach(element => {
-                                element.classList.remove('aos-animate');
-                            });
-                        }
-                    });
-                }, {
-                    threshold: 0.2,
-                    rootMargin: '-50px'
-                });
+        // Initialize navbar state
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        }
 
-                if (section) {
-                    observer.observe(section);
+        // Dark mode functionality
+        function initDarkMode() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const html = document.documentElement;
+            
+            // Check for saved dark mode preference
+            const savedDarkMode = localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Set initial dark mode state
+            if (savedDarkMode === 'true' || (!savedDarkMode && prefersDark)) {
+                html.classList.add('dark');
+            }
+
+            // Toggle dark mode
+            darkModeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                localStorage.setItem('darkMode', html.classList.contains('dark'));
+            });
+
+            // Listen for system dark mode changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('darkMode')) {
+                    html.classList.toggle('dark', e.matches);
                 }
+            });
+        }
+
+        // Initialize dark mode
+        initDarkMode();
+    </script>
+    <script>
+        // Add mouse movement effect to cards
+        document.querySelectorAll('.why-choose-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
+                const y = ((e.clientY - rect.top) / card.clientHeight) * 100;
+                
+                card.style.setProperty('--mouse-x', `${x}%`);
+                card.style.setProperty('--mouse-y', `${y}%`);
+                
+                const rotateY = ((e.clientX - rect.left) / card.clientWidth - 0.5) * 10;
+                const rotateX = ((e.clientY - rect.top) / card.clientHeight - 0.5) * -10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
             });
         });
     </script>
