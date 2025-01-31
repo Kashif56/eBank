@@ -686,7 +686,7 @@
         .why-choose-card:hover {
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             border-color: rgba(59, 130, 246, 0.3);
-            background: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.98));
+            /* background: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.98)); */
         }
 
         .why-choose-icon {
@@ -1029,6 +1029,186 @@
         .profile-menu-items {
             padding: 0.5rem;
         }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 400px;
+            height: 100vh;
+            background: linear-gradient(165deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.98));
+            backdrop-filter: blur(12px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 40;
+            padding: 1.5rem;
+            box-shadow: -10px 0 30px -15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+        }
+
+        .dark .mobile-menu {
+            background: linear-gradient(165deg, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.98));
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 39;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .mobile-menu-close {
+            padding: 0.5rem;
+            color: #64748b;
+            transition: color 0.2s ease;
+        }
+
+        .dark .mobile-menu-close {
+            color: #e2e8f0;
+        }
+
+        .mobile-menu-close:hover {
+            color: #ef4444;
+        }
+
+        .mobile-nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mobile-nav-item {
+            padding: 0.75rem 1rem;
+            color: #475569;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .dark .mobile-nav-item {
+            color: #e2e8f0;
+        }
+
+        .mobile-nav-item:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .dark .mobile-nav-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+        }
+
+        .mobile-nav-item i {
+            width: 1.5rem;
+            margin-right: 0.75rem;
+        }
+
+        .mobile-profile-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dark .mobile-profile-section {
+            border-color: rgba(59, 130, 246, 0.15);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding-top: 8rem;
+                padding-bottom: 4rem;
+            }
+
+            .hero-content {
+                text-align: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .service-card-large {
+                padding: 1.5rem;
+            }
+
+            .service-features {
+                grid-template-columns: 1fr;
+            }
+
+            .why-choose-card {
+                padding: 1.5rem;
+            }
+
+            .features-list {
+                gap: 0.5rem;
+            }
+
+            .profile-menu {
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 1rem 1rem 0 0;
+                transform: translateY(100%);
+            }
+
+            .profile-menu.active {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body class="font-inter antialiased bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -1099,6 +1279,79 @@
             </div>
         </nav>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu md:hidden" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <a href="/" class="text-2xl font-bold">
+                <span class="text-primary dark:text-blue-400">e</span>Bank
+            </a>
+            <button id="mobileMenuClose" class="mobile-menu-close">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav-items">
+            <a href="/" class="mobile-nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#features" class="mobile-nav-item">
+                <i class="fas fa-star"></i>
+                <span>Features</span>
+            </a>
+            <a href="#services" class="mobile-nav-item">
+                <i class="fas fa-cube"></i>
+                <span>Services</span>
+            </a>
+            <a href="#why-us" class="mobile-nav-item">
+                <i class="fas fa-check-circle"></i>
+                <span>Why Us?</span>
+            </a>
+            <a href="#about" class="mobile-nav-item">
+                <i class="fas fa-info-circle"></i>
+                <span>About</span>
+            </a>
+            <a href="#contact" class="mobile-nav-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+        </nav>
+
+        {% if request.user.is_authenticated %}
+        <div class="mobile-profile-section">
+            <div class="mb-4">
+                <div class="text-sm font-semibold text-gray-600 dark:text-gray-400">Signed in as</div>
+                <div class="text-base font-medium text-gray-900 dark:text-white">{{ request.user.get_full_name|default:request.user.username }}</div>
+                <div class="text-sm text-gray-500 dark:text-gray-400">{{ request.user.email }}</div>
+            </div>
+            <div class="mobile-nav-items">
+                <a href="/account/profile" class="mobile-nav-item">
+                    <i class="fas fa-user"></i>
+                    <span>My Profile</span>
+                </a>
+                <a href="{% url 'core:dashboard' %}" class="mobile-nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="" class="mobile-nav-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Security</span>
+                </a>
+                <a href="{% url 'account_logout' %}" class="mobile-nav-item text-red-500 hover:text-red-600">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div class="mobile-profile-section">
+            <a href="{% url 'account_login' %}" class="w-full px-6 py-2 text-white bg-primary hover:bg-blue-600 rounded-lg transition-colors text-center">
+                Login
+            </a>
+        </div>
+        {% endif %}
+    </div>
 
     <!-- Hero Section: Fade + Float -->
     <section class="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-blue-50 to-white dark:from-gray-900 dark:to-gray-800 hero-section">
@@ -1759,6 +2012,40 @@
                 }
             });
         }
+    </script>
+    <script>
+        // Mobile Menu functionality
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        if (mobileMenuButton && mobileMenu && mobileMenuClose && mobileMenuOverlay) {
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+            mobileMenuClose.addEventListener('click', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+            // Close mobile menu when clicking on a link
+            const mobileNavItems = mobileMenu.querySelectorAll('a[href^="#"]');
+            mobileNavItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    toggleMobileMenu();
+                });
+            });
+        }
+
+        // Close mobile menu on resize if screen becomes larger
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && mobileMenu.classList.contains('active')) {
+                toggleMobileMenu();
+            }
+        });
     </script>
 </body>
 </html>
