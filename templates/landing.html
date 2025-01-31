@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EBank - Modern Banking Solutions</title>
+    <title>eBank - Modern Banking Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -33,6 +33,10 @@
 
         :root.dark {
             color-scheme: dark;
+        }
+
+        *{
+            scroll-behavior: smooth;
         }
 
         body {
@@ -920,10 +924,12 @@
                 </div>
 
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="nav-link">Home</a>
-                    <a href="#" class="nav-link">Services</a>
-                    <a href="#" class="nav-link">About</a>
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#why-us" class="nav-link">Why Us?</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                     <button id="darkModeToggle" class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                         <i class="fas fa-sun text-gray-600 dark:text-yellow-400 hidden dark:block"></i>
                         <i class="fas fa-moon text-gray-600 dark:text-gray-400 block dark:hidden"></i>
@@ -1100,7 +1106,7 @@
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <section id="why-us" class="py-20 bg-gray-50 dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <span class="inline-block px-4 py-2 bg-blue-100 dark:bg-blue-900/50 text-primary rounded-full text-sm font-semibold mb-4">Why Choose Us</span>
