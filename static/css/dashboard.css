@@ -11,6 +11,7 @@
     --text-secondary: #64748b;
     --border-color: #e2e8f0;
     --font-family: 'Montserrat', sans-serif;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .dashboard-container {
@@ -62,7 +63,7 @@
 }
 
 .sub-container {
-    background: white;
+    background: var(--surface-color);
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -125,7 +126,7 @@
 
 /* Transaction History Section */
 .transaction-history {
-    background: white;
+    background: var(--surface-color);
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -158,6 +159,7 @@
     margin: 0;
     font-size: 1.1rem;
     font-weight: 500;
+    color: var(--text-primary);
 }
 
 .transaction-total .credit {
@@ -168,33 +170,40 @@
     color: var(--error-color);
 }
 
-/* Transaction Table */
-table {
+/* Table Styles */
+.transaction-history table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-    font-size: 0.875rem;
 }
 
-thead {
+.transaction-history th {
     background: var(--background-color);
-}
-
-th {
     padding: 1rem;
     text-align: left;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
 }
 
-td {
+.transaction-history td {
     padding: 1rem;
-    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     color: var(--text-primary);
 }
 
-tbody tr:hover {
-    background: var(--background-color);
+.transaction-history tr:hover {
+    background-color: var(--background-color);
+}
+
+.transaction-history td span.credit {
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.transaction-history td span.debit {
+    color: var(--error-color);
+    font-weight: 500;
 }
 
 /* Responsive Design */
@@ -213,12 +222,17 @@ tbody tr:hover {
         grid-template-columns: 1fr;
     }
 
+    .transaction-total {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
     .transaction-history {
         padding: 1rem;
         overflow-x: auto;
     }
 
-    table {
+    .transaction-history table {
         min-width: 600px;
     }
 }

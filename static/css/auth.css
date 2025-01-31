@@ -11,6 +11,8 @@
     --text-secondary: #64748b;
     --border-color: #e2e8f0;
     --font-family: 'Montserrat', sans-serif;
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -33,33 +35,35 @@ body {
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
 }
 
 .auth-card {
-    background: white;
+    background: var(--surface-color);
     border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     width: 100%;
     max-width: 480px;
     overflow: hidden;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .auth-card:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
 .auth-tabs {
     display: flex;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .auth-tab {
     flex: 1;
     padding: 1.25rem;
     text-align: center;
-    color: #666;
+    color: var(--text-secondary);
     text-decoration: none;
     transition: all 0.3s ease;
     font-weight: 600;
@@ -67,8 +71,8 @@ body {
 }
 
 .auth-tab:hover {
-    background: #f8f9fa;
-    color: #333;
+    background: var(--border-color);
+    color: var(--text-primary);
 }
 
 .auth-tab.active {
@@ -87,7 +91,7 @@ body {
 .auth-title {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-primary);
     margin: 0;
     text-align: center;
     font-family: var(--font-family);
@@ -95,11 +99,10 @@ body {
 }
 
 .auth-subtitle {
-    color: #666;
+    color: var(--text-secondary);
     text-align: center;
     margin: 0.5rem 0 2rem;
     font-family: var(--font-family);
-    font-weight: 500;
 }
 
 .modern-form .form-fields {
@@ -115,7 +118,7 @@ body {
 .modern-form label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #4a5568;
+    color: var(--text-primary);
     font-weight: 600;
     font-family: var(--font-family);
 }
@@ -123,7 +126,7 @@ body {
 .modern-form input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -164,7 +167,7 @@ body {
 .auth-footer {
     text-align: center;
     margin-top: 1.5rem;
-    color: #666;
+    color: var(--text-secondary);
     font-family: var(--font-family);
 }
 
@@ -227,23 +230,24 @@ body {
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+    background: linear-gradient(135deg, var(--background-color) 0%, var(--surface-color) 100%);
 }
 
 .form {
-    background: white;
+    background: var(--surface-color);
     border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     width: 100%;
     max-width: 480px;
     padding: 2rem;
     margin-top: 1rem;
+    border: 1px solid var(--border-color);
 }
 
 .form h2 {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #1a1a1a;
+    color: var(--text-primary);
     margin: 0 0 1.5rem 0;
     text-align: center;
     font-family: var(--font-family);
@@ -264,7 +268,7 @@ body {
 .form label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #4a5568;
+    color: var(--text-primary);
     font-weight: 600;
     font-family: var(--font-family);
 }
@@ -272,7 +276,7 @@ body {
 .form input {
     width: 100%;
     padding: 0.75rem 1rem;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -322,7 +326,7 @@ body {
 .form .user-status {
     text-align: center;
     padding: 1rem;
-    background: #f8f9fa;
+    background: var(--background-color);
     border-radius: 8px;
     margin-bottom: 1.5rem;
     color: var(--text-secondary);
