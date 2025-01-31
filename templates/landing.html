@@ -1140,16 +1140,28 @@
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .hero-section {
-                padding-top: 8rem;
-                padding-bottom: 4rem;
+                padding-top: 6rem;
+                padding-bottom: 3rem;
             }
 
             .hero-content {
                 text-align: center;
             }
 
+            .hero-title {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
+
             .hero-buttons {
                 justify-content: center;
+                flex-wrap: wrap;
+                gap: 0.75rem;
             }
 
             .stats-grid {
@@ -1157,56 +1169,341 @@
                 gap: 1rem;
             }
 
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.875rem;
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .service-card {
+                padding: 1.25rem;
+            }
+
             .service-card-large {
-                padding: 1.5rem;
+                padding: 1.25rem;
             }
 
             .service-features {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .why-choose-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
 
             .why-choose-card {
-                padding: 1.5rem;
+                padding: 1.25rem;
+                font-size: 0.875rem;
+            }
+
+            .why-choose-title {
+                font-size: 1.125rem;
             }
 
             .features-list {
                 gap: 0.5rem;
+                font-size: 0.875rem;
             }
 
-            .profile-menu {
-                position: fixed;
-                top: auto;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                border-radius: 1rem 1rem 0 0;
-                transform: translateY(100%);
+            .footer {
+                padding: 2rem 1rem;
             }
 
-            .profile-menu.active {
-                transform: translateY(0);
-            }
-        }
-
-        @media (max-width: 640px) {
-            .stats-grid {
+            .footer-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
             }
 
-            .hero-title {
-                font-size: 2.5rem;
+            .footer-links {
+                justify-content: center;
             }
 
-            .hero-subtitle {
-                font-size: 1.125rem;
+            .footer-social {
+                justify-content: center;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.75rem;
+                margin-bottom: 0.5rem;
             }
 
             .section-subtitle {
+                font-size: 0.875rem;
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Simplified UI Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dark .navbar {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+
+        .hero-section {
+            background: linear-gradient(165deg, #f0f9ff, #e0f2fe);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dark .hero-section {
+            background: linear-gradient(165deg, #0f172a, #1e293b);
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+
+        .hero-title {
+            font-weight: 700;
+            background: none;
+            -webkit-text-fill-color: initial;
+            color: #1e293b;
+        }
+
+        .dark .hero-title {
+            color: #f8fafc;
+        }
+
+        .hero-subtitle {
+            color: #475569;
+        }
+
+        .dark .hero-subtitle {
+            color: #94a3b8;
+        }
+
+        .primary-button {
+            background: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .primary-button:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .secondary-button {
+            background: white;
+            color: #3b82f6;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid #3b82f6;
+        }
+
+        .secondary-button:hover {
+            background: #f0f9ff;
+            transform: translateY(-1px);
+        }
+
+        .dark .secondary-button {
+            background: #1e293b;
+            border-color: #60a5fa;
+            color: #60a5fa;
+        }
+
+        .dark .secondary-button:hover {
+            background: #0f172a;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .dark .stat-card {
+            background: #1e293b;
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .dark .service-card {
+            background: #1e293b;
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .why-choose-card {
+            background: white;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .dark .why-choose-card {
+            background: #1e293b;
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+
+        .why-choose-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #1e293b;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .dark .section-title {
+            color: #f8fafc;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .dark .section-subtitle {
+            color: #94a3b8;
+        }
+
+        .footer {
+            background: #f8fafc;
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .dark .footer {
+            background: #0f172a;
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+
+        /* Mobile Menu Simplification */
+        .mobile-menu {
+            background: white;
+        }
+
+        .dark .mobile-menu {
+            background: #1e293b;
+        }
+
+        .mobile-nav-item {
+            padding: 1rem;
+            color: #475569;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .dark .mobile-nav-item {
+            color: #e2e8f0;
+        }
+
+        .mobile-nav-item:hover {
+            background: #f1f5f9;
+            color: #3b82f6;
+        }
+
+        .dark .mobile-nav-item:hover {
+            background: #0f172a;
+        }
+
+        /* Profile Menu Simplification */
+        .profile-menu {
+            background: white;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .profile-menu {
+            background: #1e293b;
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+
+        .profile-menu-item {
+            padding: 0.75rem 1rem;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+
+        .dark .profile-menu-item {
+            color: #e2e8f0;
+        }
+
+        .profile-menu-item:hover {
+            background: #f1f5f9;
+            color: #3b82f6;
+        }
+
+        .dark .profile-menu-item:hover {
+            background: #0f172a;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero-section {
+                padding: 4rem 0;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
                 font-size: 1rem;
+            }
+
+            .section-spacing {
+                padding: 3rem 0;
+            }
+
+            .card-grid {
+                gap: 1rem;
+            }
+
+            .stat-card,
+            .service-card,
+            .why-choose-card {
+                padding: 1.25rem;
             }
         }
     </style>
@@ -1273,7 +1570,7 @@
                     </button>
                 </div>
 
-                <button class="md:hidden text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none">
+                <button id="mobileMenuButton" class="md:hidden text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
@@ -2015,36 +2312,38 @@
     </script>
     <script>
         // Mobile Menu functionality
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const mobileMenuClose = document.getElementById('mobileMenuClose');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
 
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('active');
-            mobileMenuOverlay.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        }
-
-        if (mobileMenuButton && mobileMenu && mobileMenuClose && mobileMenuOverlay) {
-            mobileMenuButton.addEventListener('click', toggleMobileMenu);
-            mobileMenuClose.addEventListener('click', toggleMobileMenu);
-            mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
-
-            // Close mobile menu when clicking on a link
-            const mobileNavItems = mobileMenu.querySelectorAll('a[href^="#"]');
-            mobileNavItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    toggleMobileMenu();
-                });
-            });
-        }
-
-        // Close mobile menu on resize if screen becomes larger
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768 && mobileMenu.classList.contains('active')) {
-                toggleMobileMenu();
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('active');
+                mobileMenuOverlay.classList.toggle('active');
+                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
             }
+
+            if (mobileMenuButton && mobileMenu && mobileMenuClose && mobileMenuOverlay) {
+                mobileMenuButton.addEventListener('click', toggleMobileMenu);
+                mobileMenuClose.addEventListener('click', toggleMobileMenu);
+                mobileMenuOverlay.addEventListener('click', toggleMobileMenu);
+
+                // Close mobile menu when clicking on a link
+                const mobileNavItems = mobileMenu.querySelectorAll('a[href^="#"]');
+                mobileNavItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        toggleMobileMenu();
+                    });
+                });
+            }
+
+            // Close mobile menu on resize if screen becomes larger
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768 && mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
         });
     </script>
 </body>
