@@ -14,16 +14,18 @@
 }
 
 .payment-container {
-    padding: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .account-summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
 }
 
 .summary-card {
@@ -54,9 +56,10 @@
 
 .payment-form {
     background: var(--surface-color);
-    padding: 2rem;
-    border-radius: 1rem;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    width: 100%;
     max-width: 100%;
     margin: 0 auto;
 }
@@ -180,11 +183,11 @@
 /* Responsive design */
 @media (max-width: 768px) {
     .payment-container {
-        padding: 1rem;
+        padding: 0.5rem;
     }
 
     .payment-form {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     .input-with-button {

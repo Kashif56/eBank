@@ -59,9 +59,9 @@ class="active-link"
                     <td data-label="Receiver">{{ transaction.to_acc.full_name }}</td>
                     <td data-label="Type">
                         {% if transaction.to_acc == bank_account %}
-                        Credit
+                            Credit
                         {% else %}
-                        {{ transaction.trx_type }}
+                            {{ transaction.trx_type }}
                         {% endif %}
                     </td>
                     <td data-label="Transaction ID">{{ transaction.trx_id }}</td>
