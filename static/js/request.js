@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const verifyButton = document.getElementById('verify-account-btn');
-    const accountNumberInput = document.getElementById('account-number');
+    const accountNumberInput = document.getElementById('request_to');
     const recipientNameField = document.getElementById('recipient-name');
     const recipientDetails = document.getElementById('recipient-details');
     const accountError = document.getElementById('account-error');

@@ -4,7 +4,8 @@ from . import views
 
 app_name = 'core'
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path('', views.landingPage, name='landing_page'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('notifications/<account_number>/', views.notifications , name='notifications'),
 
     path('customer-support/', views.customer_support, name='customer_support'),

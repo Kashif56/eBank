@@ -49,18 +49,34 @@ class="active"
                 <label for="request_to">Recipient Account Number</label>
                 <div class="input-with-button">
                     <input 
-                        type="number" 
+                        type="text" 
                         id="request_to"
                         name="request_to" 
                         class="form-control"
                         placeholder="Enter account number"
                         required
+                        maxlength="19"
                     >
-                    <button type="button" class="verify-button">
-                        <i class="fas fa-check"></i>
-                        Verify
+                    <button type="button" id="verify-account-btn" class="verify-button">
+                        <i class="fas fa-check-circle"></i>
+                        Verify Account
                     </button>
                 </div>
+                <div id="account-error" class="error-message" style="display: none; color: #dc3545; margin-top: 0.5rem;"></div>
+                <div id="account-success" class="success-message" style="display: none; color: #28a745; margin-top: 0.5rem;">
+                    <i class="fas fa-check-circle"></i> Account verified successfully
+                </div>
+            </div>
+
+            <div id="recipient-details" class="form-group" style="display: none;">
+                <label for="recipient-name">Recipient Name</label>
+                <input 
+                    type="text" 
+                    id="recipient-name"
+                    class="form-control"
+                    readonly
+                    style="background: var(--surface-color); color: var(--text-primary);"
+                >
             </div>
 
             <div class="form-group">
@@ -104,4 +120,8 @@ class="active"
     {% endfor %}
 </div>
 {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/request.js' %}"></script>
 {% endblock %}

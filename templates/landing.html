@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBank - Modern Banking Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Floating animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Rotate animation for features */
+        @keyframes rotateIn {
+            0% { transform: rotate(-10deg); opacity: 0; }
+            100% { transform: rotate(0); opacity: 1; }
+        }
+        
+        /* Flip animation for services */
+        @keyframes flipIn {
+            0% { transform: perspective(400px) rotateY(-90deg); opacity: 0; }
+            100% { transform: perspective(400px) rotateY(0); opacity: 1; }
+        }
+        
+        /* Bounce animation for testimonials */
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Slide up animation for stats */
+        @keyframes slideUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Wave animation for CTA */
+        @keyframes wave {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse-slow { animation: pulse 4s ease-in-out infinite; }
+        .animate-rotate { animation: rotateIn 1s ease-out forwards; }
+        .animate-flip { animation: flipIn 1s ease-out forwards; }
+        .animate-bounce { animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+        .animate-slide-up { animation: slideUp 1s ease-out forwards; }
+        
+        /* Applying animations to sections */
+        .features-section [data-aos] { animation: rotateIn 1s ease-out forwards; }
+        .services-section [data-aos] { animation: flipIn 1s ease-out forwards; }
+        .testimonials-section [data-aos] { animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+        .stats-section [data-aos] { animation: slideUp 1s ease-out forwards; }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#3b82f6',
+                        accent: '#f59e0b',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter antialiased bg-gradient-to-br from-blue-50 to-white">
+    <!-- Navigation -->
+    <nav class="bg-white/95 backdrop-blur-sm shadow-sm fixed w-full z-50 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <!-- Logo and Brand -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="flex items-center space-x-3 group">
+                        <img class="h-10 w-auto rounded-lg transition-transform duration-300 group-hover:scale-105" 
+                             src="https://img.freepik.com/free-vector/gradient-bank-logo-design_23-2149543725.jpg?w=150" 
+                             alt="eBank Logo">
+                        <span class="text-xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">eBank</span>
+                    </a>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex md:items-center md:space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Features</a>
+                    <a href="#services" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Services</a>
+                    <a href="#testimonials" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Testimonials</a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:-translate-y-0.5">Contact</a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="#" class="inline-flex items-center px-6 py-2.5 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary transition-all duration-200 transform hover:-translate-y-0.5 hover:shadow-lg">
+                        Get Started
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary transition-all duration-200">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Fade + Float -->
+    <section class="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-white">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
+                        <div class="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-blue-100 to-indigo-100 text-primary mb-6">
+                            <span class="text-sm font-semibold">Welcome to EBank</span>
+                        </div>
+                        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6" data-aos="fade-up" data-aos-delay="200">
+                            Banking Made 
+                            <span class="relative inline-block">
+                                <span class="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600">Simple</span>
+                                <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 100 20" preserveAspectRatio="none">
+                                    <path d="M0 15 Q50 0 100 15" stroke="url(#blue-gradient)" stroke-width="4" fill="none"/>
+                                    <defs>
+                                        <linearGradient id="blue-gradient" x1="0" y1="0" x2="100%" y2="0">
+                                            <stop offset="0%" style="stop-color: rgb(37, 99, 235)"/>
+                                            <stop offset="100%" style="stop-color: rgb(96, 165, 250)"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </span>
+                        </h1>
+                        <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="400">
+                            Experience the future of banking with our secure and intuitive digital platform. Manage your finances with confidence.
+                        </p>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-4 mb-12" data-aos="fade-up" data-aos-delay="600">
+                            <a href="/account/signup" class="inline-flex items-center px-8 py-4 text-white rounded-xl transition-all duration-200 transform hover:-translate-y-1 bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary shadow-lg hover:shadow-xl">
+                                <i class="fas fa-user-plus mr-2"></i>
+                                Get Started
+                            </a>
+                            <a href="#features" class="inline-flex items-center px-8 py-4 bg-white/80 backdrop-blur-sm text-primary rounded-xl hover:bg-white transition-all duration-200 shadow-md hover:shadow-xl transform hover:-translate-y-1">
+                                <i class="fas fa-play mr-2"></i>
+                                How it Works
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-8" data-aos="fade-up" data-aos-delay="800">
+                            <div class="relative group" data-aos="zoom-in" data-aos-delay="900">
+                                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
+                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
+                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">2M+</div>
+                                    <p class="text-gray-600 text-sm">Active Users</p>
+                                </div>
+                            </div>
+                            <div class="relative group" data-aos="zoom-in" data-aos-delay="1000">
+                                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
+                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
+                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">150+</div>
+                                    <p class="text-gray-600 text-sm">Countries</p>
+                                </div>
+                            </div>
+                            <div class="relative group" data-aos="zoom-in" data-aos-delay="1100">
+                                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
+                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
+                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">99.9%</div>
+                                    <p class="text-gray-600 text-sm">Satisfaction</p>
+                                </div>
+                            </div>
+                            <div class="relative group" data-aos="zoom-in" data-aos-delay="1200">
+                                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-xl blur-xl transition-all duration-300 group-hover:blur-2xl"></div>
+                                <div class="relative bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-blue-100/50">
+                                    <div class="text-3xl font-bold bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent mb-1">24/7</div>
+                                    <p class="text-gray-600 text-sm">Support</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative hidden lg:block" data-aos="fade-left" data-aos-duration="1000">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-50 rounded-3xl transform rotate-6 animate-pulse-slow"></div>
+                        <img src="https://img.freepik.com/free-vector/banking-app-interface-concept_23-2148629100.jpg?w=740" 
+                             alt="Banking App" 
+                             class="relative rounded-3xl shadow-2xl transform hover:-translate-y-2 transition-transform duration-300 animate-float">
+                        <div class="absolute -bottom-8 -left-8" data-aos="fade-up" data-aos-delay="1000">
+                            <div class="bg-white rounded-2xl shadow-lg p-4 transform hover:-translate-y-1 transition-transform duration-300">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-shield-alt text-2xl text-green-600"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Bank Grade Security</h4>
+                                        <p class="text-sm text-gray-600">Your money is safe with us</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute -top-8 -right-8" data-aos="fade-up" data-aos-delay="1200">
+                            <div class="bg-white rounded-2xl shadow-lg p-4 transform hover:-translate-y-1 transition-transform duration-300">
+                                <div class="flex items-center space-x-4">
+                                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-mobile-alt text-2xl text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Mobile Banking</h4>
+                                        <p class="text-sm text-gray-600">Bank on the go</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section: Rotate In -->
+    <section id="features" class="features-section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-down" data-aos-offset="200" data-aos-duration="800">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
+                    <span class="text-sm font-semibold">Features</span>
+                </div>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up" data-aos-delay="200">Experience Next-Gen Banking</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="300">Discover why millions of users trust us with their banking needs</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                     data-aos="rotate-in" 
+                     data-aos-delay="400"
+                     data-aos-offset="300"
+                     data-aos-duration="800">
+                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Bank-Grade Security</h3>
+                    <p class="text-gray-600">Your security is our top priority. We use advanced encryption and multi-factor authentication to protect your data.</p>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                     data-aos="rotate-in" 
+                     data-aos-delay="500"
+                     data-aos-offset="300"
+                     data-aos-duration="800">
+                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Mobile Banking</h3>
+                    <p class="text-gray-600">Manage your finances on the go with our intuitive mobile app. Available for iOS and Android.</p>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                     data-aos="rotate-in" 
+                     data-aos-delay="600"
+                     data-aos-offset="300"
+                     data-aos-duration="800">
+                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Instant Transfers</h3>
+                    <p class="text-gray-600">Send money instantly to anyone, anywhere. No waiting, no hassle.</p>
+                </div>
+
+                <div class="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:-translate-y-1" 
+                     data-aos="rotate-in" 
+                     data-aos-delay="700"
+                     data-aos-offset="300"
+                     data-aos-duration="800">
+                    <div class="text-primary text-3xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Smart Analytics</h3>
+                    <p class="text-gray-600">Get insights into your spending patterns and make informed financial decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 bg-blue-100 text-primary rounded-full text-sm font-semibold mb-4">Why Choose Us</span>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Banking Excellence at Your Service</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover why thousands of customers trust us with their financial needs</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Security -->
+                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-shield-alt text-3xl text-primary group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Bank-Grade Security</h3>
+                    <p class="text-gray-600 mb-6">Your security is our top priority. We employ state-of-the-art encryption and multi-factor authentication to protect your assets.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            256-bit encryption
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Biometric authentication
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            24/7 fraud monitoring
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Customer Support -->
+                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-headset text-3xl text-primary group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">24/7 Support</h3>
+                    <p class="text-gray-600 mb-6">Our dedicated support team is always ready to assist you with any banking needs or questions you may have.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Live chat support
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Phone assistance
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Email support
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Easy Banking -->
+                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="600">
+                    <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+                        <i class="fas fa-mobile-alt text-3xl text-primary group-hover:text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Easy Banking</h3>
+                    <p class="text-gray-600 mb-6">Experience hassle-free banking with our intuitive mobile app and online platform.</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Quick transfers
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Mobile check deposit
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                            Bill pay automation
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section: Flip In -->
+    <section id="services" class="services-section py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-down" data-aos-offset="200" data-aos-duration="800">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
+                    <span class="text-sm font-semibold">Our Services</span>
+                </div>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up" data-aos-delay="200">Banking Solutions</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="300">Tailored financial services to meet your needs</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Savings Card -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300" 
+                     data-aos="flip-left" 
+                     data-aos-delay="400" 
+                     data-aos-duration="800"
+                     data-aos-offset="300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/free-vector/investor-with-laptop-monitoring-growth-dividends-trader-with-computer-studying-trading-graph-analyzing-investment-diagram-vector-illustration-finance-stock-trading-investment_74855-8432.jpg?w=900" 
+                             alt="Savings" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Savings Accounts</h3>
+                        <p class="text-gray-600 mb-4">Grow your wealth with our high-yield savings accounts.</p>
+                        <a href="#" class="text-primary hover:text-blue-700 font-semibold inline-flex items-center">
+                            Learn More
+                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Loans Card -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300" 
+                     data-aos="flip-left" 
+                     data-aos-delay="600" 
+                     data-aos-duration="800"
+                     data-aos-offset="300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/free-vector/hand-holding-phone-with-credit-card-payment-app-buyer-using-smartphone-banking-application-flat-vector-illustration-finance-digital-technology-concept_74855-24595.jpg?w=900" 
+                             alt="Loans" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Personal Loans</h3>
+                        <p class="text-gray-600 mb-4">Get instant personal loans with competitive interest rates</p>
+                        <a href="#" class="text-primary hover:text-blue-700 font-semibold inline-flex items-center">
+                            Learn More
+                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Investments Card -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300" 
+                     data-aos="flip-left" 
+                     data-aos-delay="800" 
+                     data-aos-duration="800"
+                     data-aos-offset="300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://img.freepik.com/free-vector/financial-investment-concept_23-2148509878.jpg?w=900" 
+                             alt="Investments" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Investments</h3>
+                        <p class="text-gray-600 mb-4">Grow your wealth with our diverse investment options</p>
+                        <a href="#" class="text-primary hover:text-blue-700 font-semibold inline-flex items-center">
+                            Learn More
+                            <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section: Bounce In -->
+    <section id="testimonials" class="testimonials-section py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-down" data-aos-offset="200" data-aos-duration="800">
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-100 text-primary mb-4" data-aos="zoom-in" data-aos-delay="100">
+                    <span class="text-sm font-semibold">Testimonials</span>
+                </div>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4" data-aos="fade-up" data-aos-delay="200">What Our Customers Say</h2>
+                <p class="text-xl text-gray-600" data-aos="fade-up" data-aos-delay="300">Read success stories from our satisfied customers</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 relative" 
+                     data-aos="zoom-in-up" 
+                     data-aos-delay="400"
+                     data-aos-duration="800"
+                     data-aos-offset="300">
+                    <div class="absolute -top-4 right-8 text-4xl text-primary opacity-50">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="relative">
+                        <p class="text-gray-600 mb-6">"The best banking experience I've ever had. The mobile app is intuitive and transfers are instant!"</p>
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Sarah Johnson" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-900">Sarah Johnson</h4>
+                                <p class="text-gray-600 text-sm">Business Owner</p>
+                                <div class="flex text-yellow-400 mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 relative" 
+                     data-aos="zoom-in-up" 
+                     data-aos-delay="600"
+                     data-aos-duration="800"
+                     data-aos-offset="300">
+                    <div class="absolute -top-4 right-8 text-4xl text-primary opacity-50">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="relative">
+                        <p class="text-gray-600 mb-6">"Their customer service is exceptional. Any issues I've had were resolved quickly and professionally."</p>
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Michael Chen" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-900">Michael Chen</h4>
+                                <p class="text-gray-600 text-sm">Software Engineer</p>
+                                <div class="flex text-yellow-400 mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white rounded-2xl shadow-lg p-8 relative" 
+                     data-aos="zoom-in-up" 
+                     data-aos-delay="800"
+                     data-aos-duration="800"
+                     data-aos-offset="300">
+                    <div class="absolute -top-4 right-8 text-4xl text-primary opacity-50">
+                        <i class="fas fa-quote-right"></i>
+                    </div>
+                    <div class="relative">
+                        <p class="text-gray-600 mb-6">"The security features give me peace of mind. I can bank confidently knowing my money is safe."</p>
+                        <div class="flex items-center">
+                            <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Emma Thompson" class="w-12 h-12 rounded-full mr-4">
+                            <div>
+                                <h4 class="font-bold text-gray-900">Emma Thompson</h4>
+                                <p class="text-gray-600 text-sm">Teacher</p>
+                                <div class="flex text-yellow-400 mt-1">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- CTA Section: Wave Effect -->
+    <section class="cta-section relative py-20 bg-gradient-to-r from-primary to-blue-600 overflow-hidden">
+        <div class="wave absolute inset-0 opacity-10">
+            <div class="wave-content" style="animation: wave 8s infinite linear;"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="zoom-in">
+            <div class="inline-flex items-center px-4 py-2 bg-white/20 text-white mb-4">
+                <span class="text-sm font-semibold">Get Started</span>
+            </div>
+            <h2 class="text-4xl font-bold text-white mb-4">Ready to Experience Modern Banking?</h2>
+            <p class="text-xl text-white/80 mb-8">Join millions of satisfied customers and revolutionize your banking experience today</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="/account/signup" class="inline-flex items-center px-8 py-4 bg-white text-primary rounded-xl hover:bg-blue-50 transition-colors duration-200">
+                    <i class="fas fa-user-plus mr-2"></i>
+                    Open Account Now
+                </a>
+                <a href="#features" class="inline-flex items-center px-8 py-4 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors duration-200">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Learn More
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-20 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-4">
+                    <h3 class="text-2xl font-bold">EBank</h3>
+                    <p class="text-gray-400">Making banking simple, secure, and accessible for everyone.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors duration-200">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold">Quick Links</h4>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#features" class="text-gray-400 hover:text-white transition-colors duration-200">Features</a>
+                        <a href="#services" class="text-gray-400 hover:text-white transition-colors duration-200">Services</a>
+                        <a href="#testimonials" class="text-gray-400 hover:text-white transition-colors duration-200">Testimonials</a>
+                        <a href="/account/login" class="text-gray-400 hover:text-white transition-colors duration-200">Login</a>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold">Contact</h4>
+                    <div class="space-y-2">
+                        <p class="flex items-center text-gray-400">
+                            <i class="fas fa-phone mr-3"></i>
+                            +1 234 567 890
+                        </p>
+                        <p class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-3"></i>
+                            support@ebank.com
+                        </p>
+                        <p class="flex items-center text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-3"></i>
+                            123 Banking Street, NY 10001
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold">Newsletter</h4>
+                    <p class="text-gray-400">Subscribe to our newsletter for updates and offers.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 bg-gray-800 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                        <button class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-blue-700 transition-colors duration-200">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-6">
+                <p class="text-center text-gray-400">&copy; 2025 EBank. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS with custom settings
+        AOS.init({
+            duration: 1000,
+            once: false,
+            offset: 150,
+            easing: 'ease-out-cubic',
+            disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+            mirror: true
+        });
+
+        // Enhanced scroll-based animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedSections = [
+                '.features-section',
+                '.services-section',
+                '.testimonials-section'
+            ];
+
+            animatedSections.forEach(sectionClass => {
+                const section = document.querySelector(sectionClass);
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.querySelectorAll('[data-aos]').forEach(element => {
+                                element.classList.add('aos-animate');
+                            });
+                        } else {
+                            // Remove animation class when section is not visible
+                            entry.target.querySelectorAll('[data-aos]').forEach(element => {
+                                element.classList.remove('aos-animate');
+                            });
+                        }
+                    });
+                }, {
+                    threshold: 0.2,
+                    rootMargin: '-50px'
+                });
+
+                if (section) {
+                    observer.observe(section);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
