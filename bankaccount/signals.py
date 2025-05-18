@@ -18,6 +18,7 @@ def store_previous_state(sender, instance, **kwargs):
     else:
         instance._pre_save_instance = None
 
+
 @receiver(post_save, sender=BankAccount)
 def send_account_approval_email(sender, instance, created, **kwargs):
    
@@ -30,15 +31,17 @@ def send_account_approval_email(sender, instance, created, **kwargs):
                 message = 'Congratulations! Your bank account has been approved. You can now access your account.'
                 from_email = settings.DEFAULT_FROM_EMAIL
                 recipient_list = [instance.user.email]  # Assuming BankAccount has a ForeignKey to User
-
+                
                 new_notification = Notifications(
                     user=instance,
                     content=message,
                 )
                 new_notification.save()
              
-
-                send_mail(subject, message, from_email, recipient_list)
+                try:
+                    send_mail(subject, message, from_email, recipient_list)
+                except Exception as e:
+                    print(f"Failed to send email: {e}")
                
       
 @receiver(post_save, sender=BankAccount)
@@ -61,6 +64,9 @@ def send_account_activated_email(sender, instance, created, **kwargs):
                 new_notification.save()
               
 
-                send_mail(subject, message, from_email, recipient_list)
+                try:
+                    send_mail(subject, message, from_email, recipient_list)
+                except Exception as e:
+                    print(f"Failed to send email: {e}")
                
      

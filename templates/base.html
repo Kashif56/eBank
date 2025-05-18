@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Online Banking{% endblock %}</title>
     {% block extra_css %}{% endblock %}
+    <!-- Google Fonts: Montserrat -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -30,7 +32,7 @@
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --font-family: 'Montserrat', sans-serif;
+            --font-family: 'Montserrat';
         }
 
         :root[data-theme="dark"] {
@@ -52,6 +54,7 @@
             padding: 0;
             box-sizing: border-box;
             transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: var(--font-family) !important;
         }
 
         body {
