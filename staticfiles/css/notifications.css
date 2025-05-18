@@ -1,0 +1,95 @@
+.dashboard-container {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.transaction-history {
+    background: var(--surface-color);
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.transaction-history h2 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.transaction-history h2 i {
+    color: var(--primary-color);
+}
+
+/* Notification Table */
+.transaction-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.transaction-history td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.transaction-history tr:last-child td {
+    border-bottom: none;
+}
+
+.transaction-history tr:hover {
+    background-color: var(--background-color);
+}
+
+/* Notification Time */
+.transaction-history td:last-child {
+    text-align: right;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+/* Empty State */
+.transaction-history td[colspan] {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+
+    .transaction-history {
+        padding: 1rem;
+    }
+
+    .transaction-history table {
+        display: block;
+    }
+
+    .transaction-history td {
+        display: block;
+        padding: 0.75rem;
+    }
+
+    .transaction-history td:last-child {
+        text-align: left;
+        padding-top: 0.25rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .transaction-history tr:last-child td:last-child {
+        border-bottom: none;
+    }
+}
