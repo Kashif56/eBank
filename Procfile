@@ -1,1 +1,1 @@
-web: gunicorn eBank.wsgi
+web: gunicorn online_bank.wsgi
